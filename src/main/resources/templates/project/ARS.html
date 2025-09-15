@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alternate Reality Simulator — Nívea</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: linear-gradient(135deg, #000000, #0f0f12, #1c1c1e);
+      color: #fff;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+    .project-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid #3a8fa3;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 900px;
+      margin: 80px auto;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(80,196,216,0.25);
+      transition: all 0.4s ease;
+    }
+    .project-card:hover {
+      transform: scale(1.02);
+      border-color: #50c4d8;
+      box-shadow: 0 0 35px rgba(80,196,216,0.35);
+    }
+    h1 { font-size: 3rem; text-transform: uppercase; margin-bottom: 20px; color: #f1f1f1; }
+    p { font-size: 1.1rem; color: #b5b5b5; margin-bottom: 20px; line-height: 1.6; }
+    strong { color: #e6e6e6; }
+    .btn-outline {
+      border: 1px solid #3a8fa3;
+      color: #e6e6e6;
+      margin: 10px;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      transition: 0.3s;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .btn-outline:hover {
+      background: rgba(58,143,163,0.1);
+      color: #50c4d8;
+      border-color: #50c4d8;
+      box-shadow: 0 0 12px rgba(80,196,216,0.3);
+    }
+    #portal-overlay {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: 300vmax; height: 300vmax;
+      background: radial-gradient(circle,#2a2a2e,#1c1c1e,#000);
+      border-radius: 50%;
+      transform: translate(-50%,-50%) scale(1);
+      z-index: 2000;
+      animation: portalFade 1.2s forwards;
+    }
+    @keyframes portalFade {
+      0% {transform:translate(-50%,-50%) scale(1);opacity:1;}
+      100% {transform:translate(-50%,-50%) scale(0);opacity:0;}
+    }
+    #replay-iris {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: #111;
+      border: 1px solid #444;
+      border-radius: 50%;
+      color: #e6e6e6;
+      font-size: 1.3rem;
+      width: 50px; height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+      z-index: 999;
+    }
+    #replay-iris:hover { border-color: #50c4d8; color: #50c4d8; transform: scale(1.1); }
+  </style>
+</head>
+<body>
+  <div id="portal-overlay"></div>
+
+  <div class="project-card">
+    <h1>Alternate Reality Simulator</h1>
+    <p><strong>Summary:</strong> An AI platform that allows users to explore alternative versions of their lives and decisions using biometric and psychological data, emotional classification with BART, and narrative generation with Gemini 1.5.</p>
+    
+    <p><strong>Expanded Description:</strong>  
+    I designed and am developing a simulator that integrates biometric data, psychological responses, and introspective inputs to create personalized digital models of a user’s “essence.”  
+    Using NLP pipelines and BART-based models, it maps emotions and decision-making patterns.  
+    With Gemini 1.5, it generates immersive “what if” scenarios for reflection, therapy, and creativity.</p>
+    
+    <p><strong>Applications:</strong> Personal development, therapy, creative tools, educational simulations, and research in computational psychology.</p>
+    
+    <p><strong>Status:</strong> Prototype stage. Next steps: narrative refinement with Gemini 1.5, usability tests, and stronger anonymization layers.</p>
+
+    <div>
+      <a href="project.html" class="btn btn-outline">← Back to Multiverse</a>
+    </div>
+  </div>
+
+  <button id="replay-iris" title="Replay or mute Íris narration">🔊</button>
+
+  <script>
+    function speakIris(text) {
+      speechSynthesis.cancel();
+      const iris = new SpeechSynthesisUtterance(text);
+      iris.lang = "en-US";
+      iris.rate = 1.1;
+      iris.pitch = 1.2;
+
+      const voices = speechSynthesis.getVoices();
+      const preferredNames = ["Samantha", "Google US English", "Microsoft Zira"];
+      let chosen = voices.find(v => preferredNames.some(name => v.name.includes(name)));
+      if (!chosen) chosen = voices.find(v => v.lang === "en-US");
+      if (chosen) iris.voice = chosen;
+
+      iris.onstart = () => { document.getElementById("replay-iris").textContent = "🔇"; };
+      iris.onend = () => { document.getElementById("replay-iris").textContent = "🔊"; };
+
+      speechSynthesis.speak(iris);
+    }
+
+    const narration = "You are now entering the dimension of the Alternate Reality Simulator. "
+      + "This project combines biometric and psychological data to create a digital model of your essence. "
+      + "It uses BART for emotional classification and Gemini 1.5 to generate immersive narratives. "
+      + "Here, you can safely explore who you might have been — a bridge between science, storytelling, and self-discovery.";
+
+    window.addEventListener("load", () => { speakIris(narration); });
+
+    document.getElementById("replay-iris").addEventListener("click", () => {
+      speechSynthesis.cancel();
+      if (document.getElementById("replay-iris").textContent === "🔊") {
+        speakIris(narration);
+      } else {
+        document.getElementById("replay-iris").textContent = "🔊";
+      }
+    });
+  </script>
+</body>
+</html>

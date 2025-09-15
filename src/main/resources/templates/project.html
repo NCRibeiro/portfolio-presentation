@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects — Nívea Ribeiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue-deep:#062D3E;
+      --petrol:#25535B;
+      --terracotta:#B15330;
+      --rose:#C9AFA5;
+      --black:#000000;
+      --white:#FFFFFF;
+    }
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: linear-gradient(145deg, var(--black), var(--blue-deep), #111);
+      color: #f1f1f1;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-transform: uppercase;
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--petrol), var(--terracotta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--rose);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 0 auto;
+      padding: 20px 0 60px;
+      width: 90%;
+      max-width: 1100px;
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .timeline.show { display: block; opacity: 1; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%; width: 3px;
+      background: linear-gradient(180deg, var(--petrol), var(--terracotta), var(--black));
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px;
+    }
+    .timeline-item.left { left: 0; text-align: right; }
+    .timeline-item.right { left: 50%; }
+    .timeline-content {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--petrol);
+      border-radius: 12px;
+      padding: 22px;
+      position: relative;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .timeline-item.show .timeline-content { opacity: 1; transform: translateY(0); }
+    .timeline-content:hover {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 20px rgba(185,83,48,0.4);
+      transform: translateY(-2px);
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 24px;
+      width: 16px; height: 16px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      left: -8px;
+      box-shadow: 0 0 10px rgba(185,83,48,0.7);
+    }
+    .timeline-item.right .timeline-dot { left: auto; right: -8px; }
+
+    .btn-outline {
+      border: 1px solid var(--terracotta);
+      color: #e6e6e6;
+      background: transparent;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: 0.3s;
+      font-size: 0.85rem;
+      padding: 7px 16px;
+      border-radius: 30px;
+    }
+    .btn-outline:hover {
+      background: linear-gradient(90deg, var(--petrol), var(--terracotta));
+      color: #fff;
+      box-shadow: 0 0 15px rgba(185,83,48,0.5);
+      border-color: var(--terracotta);
+    }
+
+    #replay-iris {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: #1f1f1f;
+      border: 2px solid var(--petrol);
+      border-radius: 50%;
+      color: var(--rose);
+      font-size: 1.3rem;
+      width: 50px; height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    #replay-iris:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+
+    /* Mobile */
+    @media (max-width: 992px) {
+      .timeline::before { left: 8px; transform:none; }
+      .timeline-item, .timeline-item.left, .timeline-item.right {
+        left: 0; width: 100%; text-align: left;
+      }
+      .timeline-dot { left: -0px; }
+    }
+  </style>
+</head>
+<body class="container py-5">
+
+  <div class="text-center mb-5">
+    <h1>Multiverse of Projects</h1>
+    <div class="subtitle">Each project is a universe of innovation</div>
+  </div>
+
+  <div class="timeline" id="timeline">
+    <!-- OneAPIIRS -->
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>OneAPIIRS</h3>
+        <p>A platform that integrates legacy tax systems with modern APIs, bringing clarity and security to fiscal data.</p>
+        <p><strong>Stack:</strong> Python, FastAPI, PostgreSQL, Flutter</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="oneapiirs.html" class="btn btn-outline">Details</a>
+          <a href="https://github.com/NCRibeiro/oneapiirs" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SADB -->
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>SADB</h3>
+        <p>A banking attack and defense simulator, created to train cybersecurity strategies in financial environments.</p>
+        <p><strong>Stack:</strong> Java, Spring Boot, PostgreSQL</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="sadb.html" class="btn btn-outline">Details</a>
+          <a href="https://github.com/NCRibeiro/sadb" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Life -->
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Life</h3>
+        <p>An AI-powered mental health assistant with natural voice, designed for continuous 24/7 human support.</p>
+        <p><strong>Stack:</strong> Python, FastAPI, Gemini API, Voice</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="life.html" class="btn btn-outline">Details</a>
+          <a href="https://github.com/NCRibeiro/life" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alternate Reality Simulator -->
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Alternate Reality Simulator</h3>
+        <p>An AI platform that lets users explore alternate versions of their lives through biometric data, emotional classification with BART, and narrative generation with Gemini 1.5.</p>
+        <p><strong>Stack:</strong> Python, FastAPI, BART, Gemini 1.5</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="alternate-reality.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Recommendation System -->
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Visual Recommendation System</h3>
+        <p>Hybrid recommendation engine combining visual embeddings (EfficientNet-B4) with collaborative filtering, boosting CTR by +20% and AOV by +15%.</p>
+        <p><strong>Stack:</strong> EfficientNet-B4, Python, ANN Index</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="visual-rec.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-Time Face Detection -->
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Real-Time Face Detection</h3>
+        <p>YOLOv8-based face detection optimized for industrial access control, achieving 95% accuracy in challenging scenarios.</p>
+        <p><strong>Stack:</strong> YOLOv8, PyTorch, Edge Devices</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="face-detection.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Virtual Assistant (Gemini 1.5) -->
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Virtual Assistant — Gemini 1.5</h3>
+        <p>Customizable assistant for marketing, automating content, SEO checks, CMS integration, and analytics-driven optimization.</p>
+        <p><strong>Stack:</strong> Gemini 1.5, Vector DB, CMS APIs</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="virtual-assistant.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sentiment Classifier -->
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Sentiment Classifier</h3>
+        <p>LSTM-based sentiment classifier trained on 100k tweets; adapts chatbot tone based on detected emotions.</p>
+        <p><strong>Stack:</strong> LSTM, Python, Chatbot</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="sentiment.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOLOv8 Precision Agriculture -->
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>YOLOv8 Precision Agriculture</h3>
+        <p>Detector trained on 3,600 images; mAP 0.92; optimized on edge for crop monitoring and pest detection.</p>
+        <p><strong>Stack:</strong> YOLOv8, PyTorch, TensorRT, Edge Devices</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="yolo-agri.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <h3>Contact</h3>
+        <p>Get in touch with Nívea Ribeiro through email, phone or professional networks.</p>
+        <p><strong>Stack:</strong> Human Connection</p>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="contact.html" class="btn btn-outline">Open</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="replay-iris" title="Replay Íris narration">🔊</button>
+
+  <!-- player escondido -->
+  <audio id="iris-audio" src="iris-voice.mp3"></audio>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("timeline").classList.add("show");
+
+      const audio = document.getElementById("iris-audio");
+      const btn = document.getElementById("replay-iris");
+
+      // tenta autoplay
+      audio.play().then(() => {
+        btn.textContent = "🔇";
+      }).catch(() => {
+        console.log("Autoplay bloqueado. Clique no botão 🔊 para ouvir.");
+      });
+
+      // quando terminar
+      audio.onended = () => { btn.textContent = "🔊"; };
+
+      // botão replay/pause
+      btn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          btn.textContent = "🔇";
+        } else {
+          audio.pause();
+          btn.textContent = "🔊";
+        }
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll(".timeline-item").forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add("show");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
