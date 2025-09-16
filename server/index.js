@@ -1,4 +1,4 @@
-// index.js — Backend para Íris com Google Cloud TTS (Vercel)
+// server/index.js — Backend para Íris com Google Cloud TTS (Vercel)
 
 import express from "express";
 import textToSpeech from "@google-cloud/text-to-speech";
@@ -11,16 +11,16 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 
-// 🔑 Cliente do Google TTS usando variáveis de ambiente
+// Configura o cliente do Google TTS usando variáveis de ambiente da Vercel
 const client = new textToSpeech.TextToSpeechClient({
   credentials: {
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   },
   projectId: process.env.GOOGLE_PROJECT_ID,
 });
 
-// 🎤 Rota para gerar voz
+// Rota para gerar voz
 app.post("/api/speak", async (req, res) => {
   try {
     const { text } = req.body;
@@ -28,7 +28,7 @@ app.post("/api/speak", async (req, res) => {
     const request = {
       input: { text },
       voice: {
-        languageCode: "en-US",   // inglês
+        languageCode: "en-US",   // voz em inglês
         name: "en-US-Wavenet-F", // voz feminina neural natural
         ssmlGender: "FEMALE",
       },
@@ -49,5 +49,5 @@ app.post("/api/speak", async (req, res) => {
   }
 });
 
-// 🚀 Exporta o app para a Vercel rodar como serverless
+// 🚀 Exporta o app para Vercel
 export default app;
