@@ -12,6 +12,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server/index.js" },
+    { "src": "/", "dest": "/templates/index.html" },
     { "src": "/(.*)", "dest": "/templates/$1" }
   ]
 }
