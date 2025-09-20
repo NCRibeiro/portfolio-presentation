@@ -7,6 +7,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/speak.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "src/main/resources/templates/**/*.html",
       "use": "@vercel/static"
     },
@@ -17,6 +21,7 @@
   ],
   "routes": [
     { "src": "/api/tts", "dest": "api/tts.js" },
+    { "src": "/api/speak", "dest": "api/speak.js" },
     { "src": "/", "dest": "src/main/resources/templates/index.html" },
     { "src": "/(.*)", "dest": "src/main/resources/templates/$1" }
   ],

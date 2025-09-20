@@ -4,46 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interactive Portfolio — Nívea Ribeiro</title>
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
     body {
       font-family: 'Exo 2', sans-serif;
       letter-spacing: 0.5px;
       overflow: hidden;
-      background: linear-gradient(145deg, #000000, #062D3E, #111111);
-      color: #eaeaea;
+      background: linear-gradient(90deg, #fcfcfcff, #ecececff, #161616ff);
+      color: #ffffffff;
+      padding-top: 70px;
     }
     h1 {
-      font-size: 5.5rem;
-      font-weight: 800;
+      font-size: 6.0rem;
+      font-weight: 700;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #25535B, #B15330);
+      background: linear-gradient(90deg, #152a34ff, #873414ff);
+      background-clip: text;
+      background-color: transparent;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
     }
     p {
-      font-size: 1.3rem;
-      color: #C9AFA5;
+      font-size: 2.2rem;
+      color: #373636ff;
       opacity: 0.9;
+      margin-bottom: 1.5rem;
     }
     .btn-custom {
       background: transparent;
-      border: 2px solid #B15330;
-      color: #e6e6e6;
-      font-size: 1rem;
-      padding: 10px 28px;
-      border-radius: 50px;
+      border: 2px solid #ab5434ff;
+      color: #625f5dff;
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      border-radius: 40px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.6px;
       transition: all 0.3s ease;
+      margin: 0 8px;
     }
     .btn-custom:hover {
       background: linear-gradient(70deg, #25535B, #B15330);
@@ -53,15 +53,15 @@
     }
     #intro-sequence {
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 1.4rem;
-      color: #B15330;
+      font-size: 1.6rem;
+      color: #913b13ff;
       white-space: pre-wrap;
-      text-shadow: 0 0 10px rgba(185,83,48,0.6);
+      text-shadow: 0 0 10px rgba(143, 129, 129, 0.71);
     }
-    #replay-iris {
+    #replay-alex {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -77,7 +77,7 @@
       transition: all 0.3s ease;
       z-index: 999;
     }
-    #replay-iris:hover {
+    #replay-alex:hover {
       background: #25535B;
       color: #fff;
       transform: scale(1.1);
@@ -100,135 +100,178 @@
       height: 300vmax;
       transform: translate(-50%, -50%) scale(1);
     }
+    #main-content {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 85vh;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    #main-content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .navbar {
+      padding-top: 0.3rem !important;
+      padding-bottom: 0.3rem !important;
+    }
+    .navbar-brand {
+      font-size: 1.1rem;
+    }
+    .nav-link {
+      font-size: 0.95rem;
+      padding: 0.4rem 0.8rem !important;
+    }
+    #alex-container {
+      position: fixed;
+      width: 180px;
+      height: 180px;
+      z-index: 100;
+      pointer-events: none;
+      transition: all 2s ease-in-out;
+      bottom: 20px;
+      right: 20px;
+    }
   </style>
 </head>
-<body class="d-flex align-items-center justify-content-center vh-100">
-
-  <!-- Intro -->
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold" href="index.html" style="letter-spacing:1px;">Nívea Ribeiro</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="alex-container"></div>
   <div id="intro-sequence" class="text-center">
     <pre id="typewriter" class="mb-4"></pre>
   </div>
-
-  <!-- Main content -->
-  <div id="main-content" class="container text-center" style="display:none;">
+  <div id="main-content">
     <h1>Nívea Ribeiro</h1>
-    <p class="lead mb-4">Innovative Software Engineer — Interactive Portfolio</p>
-    <a href="project.html" id="start-btn" class="btn btn-custom shadow me-3">Start Presentation</a>
-    <a href="contact.html" class="btn btn-custom shadow">Contact</a>
+    <p class="lead mb-4">Full Stack Software Developer — Interactive Portfolio</p>
+    <div class="d-flex justify-content-center flex-wrap">
+      <a href="project.html" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
+    </div>
   </div>
-
-  <!-- Overlay -->
   <div id="portal-overlay"></div>
-
-  <!-- Replay button -->
-  <button id="replay-iris" title="Replay Íris narration">🔊</button>
-
-  <!-- Bootstrap JS -->
+  <button id="replay-alex" title="Replay Alex narration">🔊</button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Three.js Particles -->
   <script type="module">
     import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.155/build/three.module.js";
-
     let scene, camera, renderer;
     window.particles = null;
-
     function initParticles() {
       scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
       camera.position.z = 6;
-
       renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
-
+      renderer.setSize(220, 220);
+      document.getElementById("alex-container").appendChild(renderer.domElement);
       const geometry = new THREE.BufferGeometry();
-      const particlesCount = 400;
+      const particlesCount = 300;
       const positions = [];
       const colors = [];
-
-      const palette = [
-        new THREE.Color("#062D3E"),
-        new THREE.Color("#25535B"),
-        new THREE.Color("#B15330"),
-        new THREE.Color("#C9AFA5")
-      ];
-
+      const palette = [new THREE.Color("#062D3E"), new THREE.Color("#25535B"), new THREE.Color("#B15330"), new THREE.Color("#C9AFA5")];
       for (let i = 0; i < particlesCount; i++) {
-        positions.push((Math.random() - 0.5) * 10);
-        positions.push((Math.random() - 0.5) * 10);
-        positions.push((Math.random() - 0.5) * 10);
-
+        positions.push((Math.random() - 0.5) * 5);
+        positions.push((Math.random() - 0.5) * 5);
+        positions.push((Math.random() - 0.5) * 5);
         const color = palette[Math.floor(Math.random() * palette.length)];
         colors.push(color.r, color.g, color.b);
       }
-
       geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
       geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
-
-      const material = new THREE.PointsMaterial({
-        size: 0.015,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.75
-      });
-
+      const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.8 });
       window.particles = new THREE.Points(geometry, material);
       scene.add(window.particles);
-
       animate();
     }
-
     function animate() {
       requestAnimationFrame(animate);
       if (window.particles) {
-        window.particles.rotation.y += 0.0012;
-        window.particles.rotation.x += 0.0006;
+        window.particles.rotation.y += 0.001;
+        window.particles.rotation.x += 0.0005;
       }
       renderer.render(scene, camera);
     }
-
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
     initParticles();
   </script>
-
-  <!-- Íris narration usando MP3 -->
   <script>
-    let irisAudio = null;
+    function moveAlex() {
+      const alex = document.getElementById("alex-container");
+      if (!alex) return;
+      const positions = [
+        { bottom: "20px", right: "20px", top: "", left: "" },
+        { bottom: "20px", left: "20px", top: "", right: "" },
+        { top: "20px", right: "20px", bottom: "", left: "" },
+        { top: "20px", left: "20px", bottom: "", right: "" },
+      ];
+      let next = positions[Math.floor(Math.random() * positions.length)];
+      alex.style.top = next.top;
+      alex.style.bottom = next.bottom;
+      alex.style.left = next.left;
+      alex.style.right = next.right;
+    }
 
-    function speakIris() {
-      if (irisAudio) {
-        irisAudio.pause();
-        irisAudio.currentTime = 0;
+    let alexAudio = null;
+
+    async function speakAlex(text = "Hello, it's a pleasure to have you here. Welcome to Interactive Portfolio by Nívea Ribeiro!") {
+      if (alexAudio) {
+        alexAudio.pause();
+        alexAudio.currentTime = 0;
       }
-      irisAudio = new Audio("iris-voice.mp3"); // precisa estar na mesma pasta
-      irisAudio.play();
 
-      const btn = document.getElementById("replay-iris");
-      if (btn) {
-        btn.textContent = "🔇";
-        irisAudio.onended = () => { btn.textContent = "🔊"; };
+      try {
+        const response = await fetch("/api/speak", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        });
+
+        if (!response.ok) throw new Error("Erro no TTS");
+
+        const audioBlob = await response.blob();
+        alexAudio = new Audio(URL.createObjectURL(audioBlob));
+        alexAudio.play();
+
+        const btn = document.getElementById("replay-alex");
+        if (btn) {
+          btn.textContent = "🔇";
+          alexAudio.onended = () => {
+            btn.textContent = "🔊";
+            moveAlex();
+          };
+        }
+      } catch (err) {
+        console.error("❌ Erro ao chamar TTS:", err);
       }
     }
 
-    function toggleReplayIris() {
-      if (!irisAudio || irisAudio.ended) {
-        speakIris();
+    function toggleReplayAlex() {
+      if (!alexAudio || alexAudio.ended) {
+        speakAlex();
       } else {
-        irisAudio.pause();
-        irisAudio.currentTime = 0;
-        const btn = document.getElementById("replay-iris");
+        alexAudio.pause();
+        alexAudio.currentTime = 0;
+        const btn = document.getElementById("replay-alex");
         if (btn) btn.textContent = "🔊";
       }
     }
 
-    const introText = "Loading Íris Core...\nInitializing Multiverse Interface...";
-
+    const introText = "Hello, it's pleasure to have you here...\nWelcome to Interactive Portfolio Nívea Ribeiro!";
     let i = 0;
     function typeWriter() {
       if (i < introText.length) {
@@ -238,30 +281,14 @@
       } else {
         setTimeout(() => {
           document.getElementById("intro-sequence").style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-          speakIris(); // toca o áudio assim que mostra o conteúdo principal
+          const mainContent = document.getElementById("main-content");
+          mainContent.classList.add("show");
+          speakAlex();
         }, 1100);
       }
     }
 
-    document.getElementById("replay-iris").addEventListener("click", () => {
-      toggleReplayIris();
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const startBtn = document.getElementById("start-btn");
-      const overlay = document.getElementById("portal-overlay");
-      if (startBtn) {
-        startBtn.addEventListener("click", function(e) {
-          e.preventDefault();
-          overlay.classList.add("active");
-          setTimeout(() => {
-            window.location.href = this.getAttribute("href");
-          }, 1500);
-        });
-      }
-    });
-
+    document.getElementById("replay-alex").addEventListener("click", () => { toggleReplayAlex(); });
     window.addEventListener("load", () => { typeWriter(); });
   </script>
 </body>

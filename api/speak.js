@@ -5,7 +5,7 @@ import textToSpeech from "@google-cloud/text-to-speech";
 const client = new textToSpeech.TextToSpeechClient({
   credentials: {
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   },
 });
 
@@ -17,17 +17,21 @@ export default async function handler(req, res) {
   try {
     const { text } = req.body;
 
+    if (!text) {
+      return res.status(400).json({ error: "Text is required" });
+    }
+
     const request = {
       input: { text },
       voice: {
         languageCode: "en-US",
-        name: "en-US-Wavenet-F",
-        ssmlGender: "FEMALE",
+        name: "en-US-Wavenet-D", // 🔊 voz masculina neural natural
+        ssmlGender: "MALE",
       },
       audioConfig: {
         audioEncoding: "MP3",
-        speakingRate: 1.15,
-        pitch: 2.0,
+        speakingRate: 1.05, // ritmo mais natural
+        pitch: -2.0,        // tom mais grave
       },
     };
 

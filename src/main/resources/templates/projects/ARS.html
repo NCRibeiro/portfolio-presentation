@@ -6,53 +6,70 @@
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+    :root {
+      --blue-deep:#062D3E;
+      --petrol:#25535B;
+      --terracotta:#B15330;
+      --rose:#C9AFA5;
+      --black:#000000;
+      --white:#FFFFFF;
+    }
     body {
       font-family: 'Exo 2', sans-serif;
-      background: linear-gradient(135deg, #000000, #0f0f12, #1c1c1e);
-      color: #fff;
+      background: linear-gradient(135deg, var(--black), var(--blue-deep), #111);
+      color: var(--white);
       overflow: hidden;
       min-height: 100vh;
     }
     .project-card {
       background: rgba(255,255,255,0.04);
-      border: 1px solid #3a8fa3;
+      border: 1px solid var(--petrol);
       border-radius: 12px;
       padding: 40px;
       max-width: 900px;
       margin: 80px auto;
       text-align: center;
-      box-shadow: 0 0 25px rgba(80,196,216,0.25);
+      box-shadow: 0 0 25px rgba(37,83,91,0.25);
       transition: all 0.4s ease;
     }
     .project-card:hover {
       transform: scale(1.02);
-      border-color: #50c4d8;
-      box-shadow: 0 0 35px rgba(80,196,216,0.35);
+      border-color: var(--terracotta);
+      box-shadow: 0 0 35px rgba(185,83,48,0.35);
     }
-    h1 { font-size: 3rem; text-transform: uppercase; margin-bottom: 20px; color: #f1f1f1; }
-    p { font-size: 1.1rem; color: #b5b5b5; margin-bottom: 20px; line-height: 1.6; }
-    strong { color: #e6e6e6; }
+    h1 { 
+      font-size: 3rem; 
+      text-transform: uppercase; 
+      margin-bottom: 20px; 
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--petrol), var(--terracotta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p { font-size: 1.1rem; color: var(--rose); margin-bottom: 20px; line-height: 1.6; }
+    strong { color: var(--white); }
     .btn-outline {
-      border: 1px solid #3a8fa3;
+      border: 1px solid var(--terracotta);
       color: #e6e6e6;
       margin: 10px;
-      padding: 10px 20px;
+      padding: 10px 22px;
       text-transform: uppercase;
       transition: 0.3s;
-      border-radius: 6px;
+      border-radius: 30px;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
     .btn-outline:hover {
-      background: rgba(58,143,163,0.1);
-      color: #50c4d8;
-      border-color: #50c4d8;
-      box-shadow: 0 0 12px rgba(80,196,216,0.3);
+      background: linear-gradient(90deg, var(--petrol), var(--terracotta));
+      color: #fff;
+      box-shadow: 0 0 15px rgba(185,83,48,0.5);
+      border-color: var(--terracotta);
     }
     #portal-overlay {
       position: fixed;
       top: 50%; left: 50%;
       width: 300vmax; height: 300vmax;
-      background: radial-gradient(circle,#2a2a2e,#1c1c1e,#000);
+      background: radial-gradient(circle,var(--petrol),var(--terracotta),var(--black));
       border-radius: 50%;
       transform: translate(-50%,-50%) scale(1);
       z-index: 2000;
@@ -65,18 +82,18 @@
     #replay-iris {
       position: fixed;
       bottom: 20px; right: 20px;
-      background: #111;
-      border: 1px solid #444;
+      background: #1f1f1f;
+      border: 2px solid var(--petrol);
       border-radius: 50%;
-      color: #e6e6e6;
+      color: var(--rose);
       font-size: 1.3rem;
       width: 50px; height: 50px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       z-index: 999;
     }
-    #replay-iris:hover { border-color: #50c4d8; color: #50c4d8; transform: scale(1.1); }
+    #replay-iris:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
   </style>
 </head>
 <body>
@@ -86,7 +103,7 @@
     <h1>Alternate Reality Simulator</h1>
     <p><strong>Summary:</strong> An AI platform that allows users to explore alternative versions of their lives and decisions using biometric and psychological data, emotional classification with BART, and narrative generation with Gemini 1.5.</p>
     
-    <p><strong>Expanded Description:</strong>  
+    <p><strong>Expanded Description:</strong><br>
     I designed and am developing a simulator that integrates biometric data, psychological responses, and introspective inputs to create personalized digital models of a user’s “essence.”  
     Using NLP pipelines and BART-based models, it maps emotions and decision-making patterns.  
     With Gemini 1.5, it generates immersive “what if” scenarios for reflection, therapy, and creativity.</p>
@@ -125,7 +142,7 @@
     const narration = "You are now entering the dimension of the Alternate Reality Simulator. "
       + "This project combines biometric and psychological data to create a digital model of your essence. "
       + "It uses BART for emotional classification and Gemini 1.5 to generate immersive narratives. "
-      + "Here, you can safely explore who you might have been — a bridge between science, storytelling, and self-discovery.";
+      + 'Here, you can safely explore who you might have been — a bridge between science, storytelling, and self-discovery.';
 
     window.addEventListener("load", () => { speakIris(narration); });
 

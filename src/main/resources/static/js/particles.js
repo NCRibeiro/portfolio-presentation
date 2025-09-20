@@ -10,7 +10,7 @@ function initParticles() {
 
   renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  document.getElementById("iris-container").appendChild(renderer.domElement);
 
   const geometry = new THREE.BufferGeometry();
   const particlesCount = 500;

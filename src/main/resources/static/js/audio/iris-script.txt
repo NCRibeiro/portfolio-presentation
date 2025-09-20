@@ -1,0 +1,16 @@
+[iris-index.mp3]
+Welcome to my interactive portfolio. I’m Nívea Ribeiro, full-stack software engineer. 
+Explore the projects, experience the narration, and enjoy the journey.
+
+[iris-project.mp3]
+Here you’ll find a curated timeline of my projects. 
+Select any card to open details, stack, and context. 
+Enjoy the tour.
+
+[iris-about.mp3]
+This is my story. I moved from architecture to software to build what does not exist yet. 
+Purpose, design, and engineering meet here. Welcome.
+
+[iris-contact.mp3]
+Let’s connect. You can reach me by email, phone, or LinkedIn. 
+I’m open to collaborations, challenges, and bold ideas.
