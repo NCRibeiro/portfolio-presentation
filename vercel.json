@@ -26,8 +26,8 @@
     { "src": "/(.*)", "dest": "src/main/resources/templates/$1" }
   ],
   "env": {
-    "GOOGLE_PROJECT_ID": "@google_project_id",
-    "GOOGLE_CLIENT_EMAIL": "@google_client_email",
-    "GOOGLE_PRIVATE_KEY": "@google_private_key"
+    "GOOGLE_PROJECT_ID": "nivea-portfolio",
+    "GOOGLE_CLIENT_EMAIL": "tts-service@nivea-portfolio.iam.gserviceaccount.com",
+    "GOOGLE_PRIVATE_KEY": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDVVn37SBslD/FA\nYzBl+YoK6itkoeW1e/8komsSuxVn6Xyw+g9augO/kxdocjVSbSMAQmxwQfQMjm9K\nYgl3IUq7gfRhVzlTS1kGkporRYiXOHtR9DgJnq5IaDPL59ZI/SILrmKXKQQIE2hp\nhTvmwqSOSb5Rxl2ajxkJ4Q+P1uYDpn04jxHOrSGwq4XUm9w8gAnQmJ9cUJSfvsyN\nmRzxsjIVbLDz/3ixcUhLUXwafUnNPCmKP4XY4AnBExg3ArMkPNBnkmTP/XvzvNP1\nw14VXaEVFRXyGP8W6ZVs/gQtknyO0R5o0WBCRlaknqtVbJFoxck0ZQJ+8ExMcV4z\nDrThYA5/AgMBAAECggEATsjexI4n7CN7ki4vQPGLP6Wj+clqJgARROuwRB4P9Sx+\nbnMieXxphvWgtuM6euKwAtgE6N4KbRqq0drrqPGEAkQnRk1qb67LRUido65Nl571\nt9nLWg4eScIlor9O3OyShqLTaQRuJzdXn2RjL0CheaSVIujxR3NiKUpSr2mKzzyf\ncLaoXa1I8B4W82IYDbOIs/wtTLriB0QfVWOCuapMYr4piVOYlSUmYgZFJm/8fDZA\nEatXtE9dDlENgZFEJvTrTWsHVvYM3f06W68y/nzy3pikwdIdraWUW7OLTqp6kLFD\nH7rKqbW6Prtg/zwAB9xt/t71UyHqbaHAMOCuKXAyuQKBgQD3C9vSoMRdcTTFXifM\nt7DZCODJBYvdDnAIw78Ia/ko+ZqHykHPnXtikuAqFo1hAuqDbFofT2s6C86zhAC2\nfteWOH18ki+W93I9TCA5C/feV2uAoeuTCVUOlRjN/XadwvK5QbbQAUzW2eeM6y6q\nsQOAI/OoKu1xmqOiRNKPiKNNhwKBgQDdEeFOKfvB06MqaWZ9js8yZJvk3Ns/4JLB\nYcr5cpUsG+JHH6t1Kq8Ei+j8dS10cnnsu4Q2FIWvCwhz92ts8xCNYzrqF7NF3nTt\nH5c85xW/04lRgcwlmBVex0TIqscIGstB2cdHLKVd6wiGhwB4Vq9hOaRvNlrU0Xsr\nLAY4xq41SQKBgQDgM+Xy+K5dM0E2IaYzFz4rKfB+30a4fsLUYXm8lekQ8733oGor\nlnuE0VEZQVBbi37zeOEtazEgA9k6eAEBnonfLjNMW4tPEhCearkPrLnuEh5hJhIa\nZizISC2zvGTq9iK8WFQl4BgxIJ8Q99tpU66em4Iky5ikMjhxKs6BLvstfwKBgB3W\nBO90sRq2woW91exKMuKdO4EG4bxcRdI9rZQ/B6z9UmvA9XYJvbdCXr573heiP5xY\nrn5SBLzcI1brZJ8+qtQ6OUBQ1Iwwet1p7xJ0KbZLCXRrrS7BuNii0kC288e/PgF0\nL/YGK4diajMl00VqhZ78lZnA3z9rylDIT0qoXeipAoGAfBMOuSNohXp3ZlLl7x8z\n+NWeko1kLp7D8xy1Q0/Azu/kBSqPMTMJTg4JUlUD87uKFz1njrBZH7TffXgDA3io\ndPZiuayjmXLfr0XCDREj7CZ3iPh+KG5IxFyDQ40jN1elHSc08UD5XygffxVwSbph\njXTkBq9P2av6KvMM392dVYE=\n-----END PRIVATE KEY-----\n"
   }
 }
