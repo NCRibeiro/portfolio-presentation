@@ -1,7 +1,26 @@
-// particles.js — fundo com partículas animadas (Three.js)
+// particles.js — fundo com partículas animadas (Three.js) + movimento sincronizado com a fala do Alex
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.155/build/three.module.js";
 
 let scene, camera, renderer, particles;
+
+// posições-alvo do container (Alex mudando de canto)
+const positions = [
+  { bottom: "20px", right: "20px", top: "", left: "" },
+  { bottom: "20px", left: "20px", top: "", right: "" },
+  { top: "20px", right: "20px", bottom: "", left: "" },
+  { top: "20px", left: "20px", bottom: "", right: "" },
+];
+
+function moveAlexContainer() {
+  const alex = document.getElementById("iris-container") || document.getElementById("alex-container");
+  if (!alex) return;
+
+  const next = positions[Math.floor(Math.random() * positions.length)];
+  alex.style.top = next.top;
+  alex.style.bottom = next.bottom;
+  alex.style.left = next.left;
+  alex.style.right = next.right;
+}
 
 function initParticles() {
   scene = new THREE.Scene();
@@ -10,21 +29,29 @@ function initParticles() {
 
   renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  document.getElementById("iris-container").appendChild(renderer.domElement);
+
+  const container = document.getElementById("iris-container") || document.getElementById("alex-container");
+  if (container) container.appendChild(renderer.domElement);
 
   const geometry = new THREE.BufferGeometry();
   const particlesCount = 500;
-  const positions = [];
+  const posArray = [];
 
   for (let i = 0; i < particlesCount; i++) {
-    positions.push((Math.random() - 0.5) * 10);
-    positions.push((Math.random() - 0.5) * 10);
-    positions.push((Math.random() - 0.5) * 10);
+    posArray.push((Math.random() - 0.5) * 10);
+    posArray.push((Math.random() - 0.5) * 10);
+    posArray.push((Math.random() - 0.5) * 10);
   }
 
-  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(posArray, 3));
 
-  const material = new THREE.PointsMaterial({ color: 0x48c9b0, size: 0.05 });
+  const material = new THREE.PointsMaterial({
+    color: 0x48c9b0,
+    size: 0.05,
+    transparent: true,
+    opacity: 0.8,
+  });
+
   particles = new THREE.Points(geometry, material);
   scene.add(particles);
 
@@ -34,7 +61,7 @@ function initParticles() {
 function animate() {
   requestAnimationFrame(animate);
 
-  // movimento sutil nas partículas
+  // movimento fluido
   particles.rotation.y += 0.001;
   particles.rotation.x += 0.0005;
 
@@ -49,3 +76,12 @@ window.addEventListener("resize", () => {
 
 // inicializa quando carregar
 initParticles();
+
+// 🔗 Integração com Alex (narração)
+window.addEventListener("alex-speaking-start", () => {
+  moveAlexContainer(); // muda no início da fala
+});
+
+window.addEventListener("alex-speaking-end", () => {
+  moveAlexContainer(); // muda no fim da fala
+});

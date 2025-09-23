@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -36,7 +37,6 @@
       color: var(--rose);
       margin-bottom: 2.5rem;
     }
-
     .timeline {
       position: relative;
       margin: 0 auto;
@@ -88,7 +88,6 @@
       box-shadow: 0 0 10px rgba(185,83,48,0.7);
     }
     .timeline-item.right .timeline-dot { left: auto; right: -8px; }
-
     .btn-outline {
       border: 1px solid var(--terracotta);
       color: #e6e6e6;
@@ -103,7 +102,6 @@
       color: #fff;
       box-shadow: 0 0 15px rgba(185,83,48,0.5);
     }
-
     #replay-alex {
       position: fixed;
       bottom: 20px; right: 20px;
@@ -119,17 +117,6 @@
       z-index: 999;
     }
     #replay-alex:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
-
-    #alex-container {
-      position: fixed;
-      width: 180px;
-      height: 180px;
-      z-index: 100;
-      pointer-events: none;
-      transition: all 2s ease-in-out;
-      bottom: 20px;
-      right: 20px;
-    }
   </style>
 </head>
 <body>
@@ -150,14 +137,11 @@
     </div>
   </nav>
 
-  <div id="alex-container"></div>
-
   <div class="text-center mb-5">
-    <h1>Multiverse of Projects</h1>
-    <div class="subtitle">Each project is a universe of innovation</div>
+    <h1 id="projects-title">Multiverse of Projects</h1>
+    <div id="projects-subtitle" class="subtitle">Each project is a universe of innovation</div>
   </div>
 
-  <!-- Loop dos projetos -->
   <div class="timeline" id="timeline">
     <div th:each="project, iterStat : ${projects}" 
          th:class="'timeline-item ' + (${iterStat.index % 2 == 0} ? 'left' : 'right')">
@@ -178,56 +162,35 @@
 
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
+  <!-- Alex narrador central -->
+  <script src="alex.js"></script>
+
   <script>
-    let alexAudio = null;
-
-    async function speakAlex(text = "Explore Nívea Ribeiro's multiverse of projects. Each one represents innovation, creativity, and technology shaping the future.") {
-      if (alexAudio) {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
+    // Traduções multilíngues
+    const translations = {
+      "en-US": {
+        title: "Multiverse of Projects",
+        subtitle: "Each project is a universe of innovation"
+      },
+      "pt-BR": {
+        title: "Multiverso de Projetos",
+        subtitle: "Cada projeto é um universo de inovação"
+      },
+      "es-ES": {
+        title: "Multiverso de Proyectos",
+        subtitle: "Cada proyecto es un universo de innovación"
       }
+    };
 
-      try {
-        const response = await fetch("/api/speak", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        });
-
-        if (!response.ok) throw new Error("Erro no TTS");
-
-        const audioBlob = await response.blob();
-        alexAudio = new Audio(URL.createObjectURL(audioBlob));
-        alexAudio.play();
-
-        const btn = document.getElementById("replay-alex");
-        if (btn) {
-          btn.textContent = "🔇";
-          alexAudio.onended = () => { btn.textContent = "🔊"; };
-        }
-      } catch (err) {
-        console.error("❌ Erro ao chamar TTS:", err);
+    window.addEventListener("load", async () => {
+      const lang = await getPageLang();
+      if (translations[lang]) {
+        document.getElementById("projects-title").textContent = translations[lang].title;
+        document.getElementById("projects-subtitle").textContent = translations[lang].subtitle;
       }
-    }
-
-    function toggleReplayAlex() {
-      if (!alexAudio || alexAudio.ended) {
-        speakAlex();
-      } else {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
-        const btn = document.getElementById("replay-alex");
-        if (btn) btn.textContent = "🔊";
-      }
-    }
-
-    window.addEventListener("load", () => {
       document.getElementById("timeline").classList.add("show");
-      speakAlex();
-      document.getElementById("replay-alex").addEventListener("click", () => toggleReplayAlex());
     });
 
-    // animação dos cards ao scroll
     window.addEventListener("scroll", () => {
       document.querySelectorAll(".timeline-item").forEach(el => {
         const rect = el.getBoundingClientRect();

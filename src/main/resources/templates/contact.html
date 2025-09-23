@@ -21,7 +21,7 @@
       color: var(--white);
       overflow-x: hidden;
       min-height: 100vh;
-      padding-top: 70px; /* espaço para navbar fixa */
+      padding-top: 70px;
     }
     .contact-card {
       background: rgba(255,255,255,0.03);
@@ -129,7 +129,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
     <div class="container-fluid px-4">
       <a class="navbar-brand fw-bold" href="index.html" style="letter-spacing:1px;">Nívea Ribeiro</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -151,8 +151,8 @@
 
   <!-- Card de Contato -->
   <div class="contact-card">
-    <h1>Contact</h1>
-    <p>If you’d like to collaborate, share ideas, or simply say hello — here’s how you can reach me:</p>
+    <h1 id="contact-title">Contact</h1>
+    <p id="contact-intro">If you’d like to collaborate, share ideas, or simply say hello — here’s how you can reach me:</p>
 
     <form action="/contact/send" method="post" class="mt-4">
       <div class="mb-3">
@@ -164,7 +164,7 @@
       <div class="mb-3">
         <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
       </div>
-      <button type="submit" class="btn btn-submit">Send Message</button>
+      <button type="submit" id="contact-submit" class="btn btn-submit">Send Message</button>
     </form>
 
     <a href="mailto:nc.chagasribeiro@gmail.com">📧 Email: nc.chagasribeiro@gmail.com</a>
@@ -176,52 +176,36 @@
   <!-- Botão Replay Alex -->
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
+  <!-- Alex Narrador -->
+  <script src="alex.js"></script>
+
   <script>
-    let alexAudio = null;
-
-    async function speakAlex(text = "Here are my contact details. You can reach me by email, phone, GitHub, or LinkedIn.") {
-      if (alexAudio) {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
+    // Textos multilíngues para o formulário e intro
+    const translations = {
+      "en-US": {
+        title: "Contact",
+        intro: "If you’d like to collaborate, share ideas, or simply say hello — here’s how you can reach me:",
+        submit: "Send Message"
+      },
+      "pt-BR": {
+        title: "Contato",
+        intro: "Se você deseja colaborar, compartilhar ideias ou apenas dizer olá — aqui estão as formas de me encontrar:",
+        submit: "Enviar Mensagem"
+      },
+      "es-ES": {
+        title: "Contacto",
+        intro: "Si deseas colaborar, compartir ideas o simplemente saludar — aquí tienes cómo contactarme:",
+        submit: "Enviar Mensaje"
       }
+    };
 
-      try {
-        const response = await fetch("/api/speak", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        });
-
-        if (!response.ok) throw new Error("Erro no TTS");
-
-        const audioBlob = await response.blob();
-        alexAudio = new Audio(URL.createObjectURL(audioBlob));
-        alexAudio.play();
-
-        const btn = document.getElementById("replay-alex");
-        if (btn) {
-          btn.textContent = "🔇";
-          alexAudio.onended = () => { btn.textContent = "🔊"; };
-        }
-      } catch (err) {
-        console.error("❌ Erro ao chamar TTS:", err);
+    window.addEventListener("load", async () => {
+      const lang = await getPageLang();
+      if (translations[lang]) {
+        document.getElementById("contact-title").textContent = translations[lang].title;
+        document.getElementById("contact-intro").textContent = translations[lang].intro;
+        document.getElementById("contact-submit").textContent = translations[lang].submit;
       }
-    }
-
-    function toggleReplayAlex() {
-      if (!alexAudio || alexAudio.ended) {
-        speakAlex();
-      } else {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
-        const btn = document.getElementById("replay-alex");
-        if (btn) btn.textContent = "🔊";
-      }
-    }
-
-    window.addEventListener("load", () => {
-      speakAlex();
-      document.getElementById("replay-alex").addEventListener("click", () => toggleReplayAlex());
     });
   </script>
 

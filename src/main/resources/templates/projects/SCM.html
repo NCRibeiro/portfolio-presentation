@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sentiment Classification Model — Nívea</title>
+  <title>Sentiment Classification Model — Nívea Ribeiro</title>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -20,13 +20,14 @@
       color: var(--white); 
       overflow: hidden; 
       min-height: 100vh;
+      padding-top: 70px;
     }
     .project-card {
       background: rgba(255,255,255,0.04); 
       border: 1px solid var(--petrol); 
       border-radius: 12px;
       padding: 40px; 
-      max-width: 800px; 
+      max-width: 900px; 
       margin: 80px auto; 
       text-align: center;
       box-shadow: 0 0 25px rgba(37,83,91,0.25); 
@@ -38,7 +39,7 @@
       box-shadow: 0 0 35px rgba(185,83,48,0.35); 
     }
     h1 { 
-      font-size: 2.7rem; 
+      font-size: 2.8rem; 
       text-transform: uppercase; 
       margin-bottom: 20px; 
       letter-spacing: 2px;
@@ -69,21 +70,7 @@
       box-shadow: 0 0 15px rgba(185,83,48,0.5);
       border-color: var(--terracotta); 
     }
-    #portal-overlay {
-      position: fixed; 
-      top: 50%; left: 50%; 
-      width: 300vmax; height: 300vmax;
-      background: radial-gradient(circle,var(--petrol),var(--terracotta),var(--black));
-      border-radius: 50%; 
-      transform: translate(-50%,-50%) scale(1); 
-      z-index: 2000;
-      animation: portalFade 1.2s forwards;
-    }
-    @keyframes portalFade { 
-      0% {transform:translate(-50%,-50%) scale(1);opacity:1;} 
-      100% {transform:translate(-50%,-50%) scale(0);opacity:0;} 
-    }
-    #replay-iris {
+    #replay-alex {
       position: fixed;
       bottom: 20px; right: 20px;
       background: #1f1f1f;
@@ -97,57 +84,95 @@
       transition: all 0.3s ease;
       z-index: 999;
     }
-    #replay-iris:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+    #replay-alex:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+    #alex-container {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      z-index: 100;
+      pointer-events: none;
+      transition: all 2s ease-in-out;
+      bottom: 20px;
+      right: 20px;
+    }
   </style>
 </head>
 <body>
-  <div id="portal-overlay"></div>
+  <div id="alex-container"></div>
+
   <div class="project-card">
-    <h1>Sentiment Classification Model</h1>
-    <p>An <strong>LSTM-based sentiment classifier</strong> trained on 100,000 tweets, achieving 90% accuracy and F1 = 0.88. Integrated into a chatbot to adapt tone and responses to user emotions.</p>
-    <p>Built a full pipeline: data collection, tokenization, embeddings, training, and real-time inference with caching for low latency.</p>
-    <p><strong>Stack:</strong> Python, LSTM, TensorFlow/PyTorch, NLP Pipeline</p>
+    <h1 id="project-title">Sentiment Classification Model</h1>
+    <p id="project-summary"><strong>Summary:</strong> An LSTM-based sentiment classifier trained on 100,000 tweets, reaching 90% accuracy and F1 = 0.88.</p>
+    
+    <p id="project-expanded"><strong>Expanded Description:</strong><br>
+      This model integrates a complete <strong>NLP pipeline</strong>: data collection, tokenization, word embeddings, training, and real-time inference with caching.  
+      Deployed in a chatbot, it adapts tone and responses dynamically, enabling conversations that are empathetic, engaging, and context-aware.</p>
+
+    <p id="project-applications"><strong>Applications:</strong> Chatbots, customer support, opinion mining, and adaptive conversational agents.</p>
+
+    <p id="project-stack"><strong>Stack:</strong> Python, TensorFlow/PyTorch, LSTM, NLP Pipeline, Docker.</p>
+
+    <p id="project-status"><strong>Status:</strong> Validated prototype. Next steps include transformer-based improvements (BERT, GPT fine-tuning) and multilingual extension.</p>
+
     <div>
-      <a href="project.html" class="btn btn-outline">← Back to Multiverse</a>
+      <a href="project.html" class="btn btn-outline" id="btn-back">← Back to Multiverse</a>
     </div>
   </div>
 
-  <button id="replay-iris" title="Replay or mute Íris narration">🔊</button>
+  <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
+  <!-- Alex voice + particles -->
+  <script src="alex.js"></script>
   <script>
-    function speakIris(text) {
-      speechSynthesis.cancel();
-      const iris = new SpeechSynthesisUtterance(text);
-      iris.lang = "en-US";
-      iris.rate = 1.1;
-      iris.pitch = 1.2;
-
-      const voices = speechSynthesis.getVoices();
-      const preferredNames = ["Samantha", "Google US English", "Microsoft Zira"];
-      let chosen = voices.find(v => preferredNames.some(name => v.name.includes(name)));
-      if (!chosen) chosen = voices.find(v => v.lang === "en-US");
-      if (chosen) iris.voice = chosen;
-
-      iris.onstart = () => { document.getElementById("replay-iris").textContent = "🔇"; };
-      iris.onend = () => { document.getElementById("replay-iris").textContent = "🔊"; };
-
-      speechSynthesis.speak(iris);
-    }
-
-    const narration = "You are now in the dimension of the Sentiment Classification Model. "
-      + "This LSTM-based classifier was trained on one hundred thousand tweets, achieving ninety percent accuracy and an F1 score of zero point eighty-eight. "
-      + "Integrated into a chatbot, it adapts tone and responses based on detected emotions, making conversations more empathetic, engaging, and intelligent.";
-
-    window.addEventListener("load", () => { speakIris(narration); });
-
-    document.getElementById("replay-iris").addEventListener("click", () => {
-      speechSynthesis.cancel();
-      if (document.getElementById("replay-iris").textContent === "🔊") {
-        speakIris(narration);
-      } else {
-        document.getElementById("replay-iris").textContent = "🔊";
+    const translations = {
+      "en-US": {
+        summary: "Summary:",
+        expanded: "Expanded Description:",
+        applications: "Applications:",
+        stack: "Stack:",
+        status: "Status:",
+        backBtn: "← Back to Multiverse"
+      },
+      "pt-BR": {
+        summary: "Resumo:",
+        expanded: "Descrição Expandida:",
+        applications: "Aplicações:",
+        stack: "Stack:",
+        status: "Status:",
+        backBtn: "← Voltar ao Multiverso"
+      },
+      "es-ES": {
+        summary: "Resumen:",
+        expanded: "Descripción Ampliada:",
+        applications: "Aplicaciones:",
+        stack: "Stack:",
+        status: "Estado:",
+        backBtn: "← Volver al Multiverso"
       }
+    };
+
+    window.addEventListener("load", async () => {
+      const lang = await getPageLang();
+      const t = translations[lang] || translations["en-US"];
+      document.getElementById("project-summary").innerHTML = `<strong>${t.summary}</strong> LSTM-based classifier trained on 100,000 tweets with 90% accuracy and F1 = 0.88.`;
+      document.getElementById("project-expanded").innerHTML = `<strong>${t.expanded}</strong><br> Full pipeline: data collection, tokenization, embeddings, training, and real-time inference with caching. Integrated into a chatbot to adapt tone and responses dynamically.`;
+      document.getElementById("project-applications").innerHTML = `<strong>${t.applications}</strong> Chatbots, customer support, opinion mining, and adaptive agents.`;
+      document.getElementById("project-stack").innerHTML = `<strong>${t.stack}</strong> Python, TensorFlow/PyTorch, LSTM, NLP Pipeline, Docker.`;
+      document.getElementById("project-status").innerHTML = `<strong>${t.status}</strong> Validated prototype. Next steps: transformers (BERT/GPT) and multilingual support.`;
+      document.getElementById("btn-back").textContent = t.backBtn;
+
+      // Narração automática
+      const narration = getNarrationForPage(lang, "scm");
+      speakAlex(narration, lang);
+
+      // Botão replay
+      const btn = document.getElementById("replay-alex");
+      btn.addEventListener("click", () => {
+        toggleReplayAlex(narration, lang);
+      });
     });
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

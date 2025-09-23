@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Real-Time Face Detection — Nívea</title>
+  <title>Real-Time Face Detection — Nívea Ribeiro</title>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -20,6 +20,7 @@
       color: var(--white); 
       overflow: hidden; 
       min-height: 100vh;
+      padding-top: 70px;
     }
     .project-card {
       background: rgba(255,255,255,0.04); 
@@ -70,21 +71,7 @@
       box-shadow: 0 0 15px rgba(185,83,48,0.5);
       border-color: var(--terracotta); 
     }
-    #portal-overlay {
-      position: fixed; 
-      top: 50%; left: 50%; 
-      width: 300vmax; height: 300vmax;
-      background: radial-gradient(circle,var(--petrol),var(--terracotta),var(--black));
-      border-radius: 50%; 
-      transform: translate(-50%,-50%) scale(1); 
-      z-index: 2000;
-      animation: portalFade 1.2s forwards;
-    }
-    @keyframes portalFade { 
-      0% {transform:translate(-50%,-50%) scale(1);opacity:1;} 
-      100% {transform:translate(-50%,-50%) scale(0);opacity:0;} 
-    }
-    #replay-iris {
+    #replay-alex {
       position: fixed;
       bottom: 20px; right: 20px;
       background: #1f1f1f;
@@ -98,58 +85,96 @@
       transition: all 0.3s ease;
       z-index: 999;
     }
-    #replay-iris:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+    #replay-alex:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+    #alex-container {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      z-index: 100;
+      pointer-events: none;
+      transition: all 2s ease-in-out;
+      bottom: 20px;
+      right: 20px;
+    }
   </style>
 </head>
 <body>
-  <div id="portal-overlay"></div>
+  <div id="alex-container"></div>
+
   <div class="project-card">
-    <h1>Real-Time Face Detection</h1>
-    <p>An industrial-grade access control solution using YOLOv8 for real-time face detection. Optimized to perform reliably under low light, varied angles, and deployed on embedded edge devices.</p>
-    <p>Achieved <strong>95% accuracy</strong> in challenging conditions while maintaining low latency, ensuring both speed and security.</p>
-    <p><strong>Stack:</strong> YOLOv8, PyTorch, Edge Optimization, Embedded Inference</p>
+    <h1 id="project-title">Real-Time Face Detection</h1>
+    <p id="project-summary"><strong>Summary:</strong> An industrial-grade access control solution using YOLOv8 for real-time face detection, optimized for edge devices and harsh conditions.</p>
+    
+    <p id="project-expanded"><strong>Expanded Description:</strong><br>
+      This system was trained and optimized with <strong>YOLOv8 and PyTorch</strong>, leveraging extensive augmentation and quantization for deployment in real-world environments.  
+      It ensures reliable detection under <strong>low light</strong>, <strong>varied angles</strong>, and <strong>high throughput scenarios</strong>.  
+      Exported with <strong>ONNX/TensorRT</strong>, it achieves low-latency inference on embedded devices.</p>
+
+    <p id="project-results"><strong>Results:</strong> Achieved <strong>95% accuracy</strong> in complex conditions while maintaining real-time performance for critical access control systems.</p>
+
+    <p id="project-stack"><strong>Stack & Tools:</strong> YOLOv8, Ultralytics, PyTorch, OpenCV, Edge Optimization, ONNX, TensorRT, Jetson devices.</p>
+
+    <p id="project-status"><strong>Status:</strong> Deployed prototype. Current phase: expansion for multi-camera environments and integration with biometric authentication layers.</p>
+
     <div>
-      <a href="project.html" class="btn btn-outline">← Back to Multiverse</a>
+      <a href="project.html" class="btn btn-outline" id="btn-back">← Back to Multiverse</a>
     </div>
   </div>
 
-  <button id="replay-iris" title="Replay or mute Íris">🔊</button>
+  <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
+  <!-- Alex voice + particles -->
+  <script src="alex.js"></script>
   <script>
-    function speakIris(text) {
-      speechSynthesis.cancel();
-      const iris = new SpeechSynthesisUtterance(text);
-      iris.lang = "en-US";
-      iris.rate = 1.1;
-      iris.pitch = 1.2;
-
-      const voices = speechSynthesis.getVoices();
-      const preferredNames = ["Samantha", "Google US English", "Microsoft Zira"];
-      let chosen = voices.find(v => preferredNames.some(name => v.name.includes(name)));
-      if (!chosen) chosen = voices.find(v => v.lang === "en-US");
-      if (chosen) iris.voice = chosen;
-
-      iris.onstart = () => { document.getElementById("replay-iris").textContent = "🔇"; };
-      iris.onend = () => { document.getElementById("replay-iris").textContent = "🔊"; };
-
-      speechSynthesis.speak(iris);
-    }
-
-    const narration = "Now entering the Real-Time Face Detection dimension. "
-      + "This system was built with YOLO version eight, optimized for edge deployment in industrial environments. "
-      + "It reached ninety-five percent accuracy even in low light and complex conditions. "
-      + "By combining speed, robustness, and security, it ensures reliable access control for critical operations.";
-
-    window.addEventListener("load", () => { speakIris(narration); });
-
-    document.getElementById("replay-iris").addEventListener("click", () => {
-      speechSynthesis.cancel();
-      if (document.getElementById("replay-iris").textContent === "🔊") {
-        speakIris(narration);
-      } else {
-        document.getElementById("replay-iris").textContent = "🔊";
+    const translations = {
+      "en-US": {
+        summary: "Summary:",
+        expanded: "Expanded Description:",
+        results: "Results:",
+        stack: "Stack & Tools:",
+        status: "Status:",
+        backBtn: "← Back to Multiverse"
+      },
+      "pt-BR": {
+        summary: "Resumo:",
+        expanded: "Descrição Expandida:",
+        results: "Resultados:",
+        stack: "Stack & Ferramentas:",
+        status: "Status:",
+        backBtn: "← Voltar ao Multiverso"
+      },
+      "es-ES": {
+        summary: "Resumen:",
+        expanded: "Descripción Ampliada:",
+        results: "Resultados:",
+        stack: "Stack y Herramientas:",
+        status: "Estado:",
+        backBtn: "← Volver al Multiverso"
       }
+    };
+
+    window.addEventListener("load", async () => {
+      const lang = await getPageLang();
+      const t = translations[lang] || translations["en-US"];
+      document.getElementById("project-summary").innerHTML = `<strong>${t.summary}</strong> An industrial-grade access control solution using YOLOv8 for real-time face detection, optimized for edge devices and harsh conditions.`;
+      document.getElementById("project-expanded").innerHTML = `<strong>${t.expanded}</strong><br> Built with YOLOv8 and PyTorch, using quantization and ONNX/TensorRT for low-latency edge inference. Reliable in low light, varied angles, and industrial deployments.`;
+      document.getElementById("project-results").innerHTML = `<strong>${t.results}</strong> 95% accuracy in complex conditions with real-time performance for secure access control.`;
+      document.getElementById("project-stack").innerHTML = `<strong>${t.stack}</strong> YOLOv8, Ultralytics, PyTorch, OpenCV, Edge Optimization, ONNX, TensorRT, Jetson.`;
+      document.getElementById("project-status").innerHTML = `<strong>${t.status}</strong> Prototype deployed, expanding for multi-camera and biometric integrations.`;
+      document.getElementById("btn-back").textContent = t.backBtn;
+
+      // Narração automática
+      const narration = getNarrationForPage(lang, "rtfd");
+      speakAlex(narration, lang);
+
+      // Botão replay
+      const btn = document.getElementById("replay-alex");
+      btn.addEventListener("click", () => {
+        toggleReplayAlex(narration, lang);
+      });
     });
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

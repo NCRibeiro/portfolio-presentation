@@ -11,31 +11,29 @@
       font-family: 'Exo 2', sans-serif;
       letter-spacing: 0.5px;
       overflow: hidden;
-      background: linear-gradient(90deg, #fcfcfcff, #ecececff, #161616ff);
-      color: #ffffffff;
+      background: linear-gradient(90deg, #fcfcfc, #cbc9c9, #bab5b5);
+      color: #fff;
       padding-top: 70px;
     }
     h1 {
-      font-size: 6.0rem;
+      font-size: 6rem;
       font-weight: 700;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #152a34ff, #873414ff);
-      background-clip: text;
-      background-color: transparent;
+      background: linear-gradient(90deg, #152a34, #873414);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
     }
     p {
       font-size: 2.2rem;
-      color: #373636ff;
+      color: #373636;
       opacity: 0.9;
       margin-bottom: 1.5rem;
     }
     .btn-custom {
       background: transparent;
-      border: 2px solid #ab5434ff;
-      color: #625f5dff;
+      border: 2px solid #ab5434;
+      color: #625f5d;
       font-size: 0.9rem;
       padding: 8px 20px;
       border-radius: 40px;
@@ -57,8 +55,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 1.6rem;
-      color: #913b13ff;
-      white-space: pre-wrap;
+      color: #913b13;
       text-shadow: 0 0 10px rgba(143, 129, 129, 0.71);
     }
     #replay-alex {
@@ -101,7 +98,7 @@
       transform: translate(-50%, -50%) scale(1);
     }
     #main-content {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -132,164 +129,103 @@
       height: 180px;
       z-index: 100;
       pointer-events: none;
-      transition: all 2s ease-in-out;
       bottom: 20px;
       right: 20px;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
     <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold" href="index.html" style="letter-spacing:1px;">Nívea Ribeiro</a>
+      <a class="navbar-brand fw-bold" href="index.html">Nívea Ribeiro</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link home-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link project-link" href="project.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link contact-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link about-link" href="about.html">About</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
   <div id="alex-container"></div>
   <div id="intro-sequence" class="text-center">
     <pre id="typewriter" class="mb-4"></pre>
   </div>
+
   <div id="main-content">
-    <h1>Nívea Ribeiro</h1>
-    <p class="lead mb-4">Full Stack Software Developer — Interactive Portfolio</p>
+    <h1 id="title-name">Nívea Ribeiro</h1>
+    <p id="subtitle" class="lead mb-4">Full Stack Software Developer — Interactive Portfolio</p>
     <div class="d-flex justify-content-center flex-wrap">
       <a href="project.html" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
     </div>
   </div>
+
   <div id="portal-overlay"></div>
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.155/build/three.module.js";
-    let scene, camera, renderer;
-    window.particles = null;
-    function initParticles() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-      camera.position.z = 6;
-      renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setSize(220, 220);
-      document.getElementById("alex-container").appendChild(renderer.domElement);
-      const geometry = new THREE.BufferGeometry();
-      const particlesCount = 300;
-      const positions = [];
-      const colors = [];
-      const palette = [new THREE.Color("#062D3E"), new THREE.Color("#25535B"), new THREE.Color("#B15330"), new THREE.Color("#C9AFA5")];
-      for (let i = 0; i < particlesCount; i++) {
-        positions.push((Math.random() - 0.5) * 5);
-        positions.push((Math.random() - 0.5) * 5);
-        positions.push((Math.random() - 0.5) * 5);
-        const color = palette[Math.floor(Math.random() * palette.length)];
-        colors.push(color.r, color.g, color.b);
-      }
-      geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-      geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
-      const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.8 });
-      window.particles = new THREE.Points(geometry, material);
-      scene.add(window.particles);
-      animate();
-    }
-    function animate() {
-      requestAnimationFrame(animate);
-      if (window.particles) {
-        window.particles.rotation.y += 0.001;
-        window.particles.rotation.x += 0.0005;
-      }
-      renderer.render(scene, camera);
-    }
-    initParticles();
-  </script>
+  <script src="alex.js"></script>
+
   <script>
-    function moveAlex() {
-      const alex = document.getElementById("alex-container");
-      if (!alex) return;
-      const positions = [
-        { bottom: "20px", right: "20px", top: "", left: "" },
-        { bottom: "20px", left: "20px", top: "", right: "" },
-        { top: "20px", right: "20px", bottom: "", left: "" },
-        { top: "20px", left: "20px", bottom: "", right: "" },
-      ];
-      let next = positions[Math.floor(Math.random() * positions.length)];
-      alex.style.top = next.top;
-      alex.style.bottom = next.bottom;
-      alex.style.left = next.left;
-      alex.style.right = next.right;
-    }
-
-    let alexAudio = null;
-
-    async function speakAlex(text = "Hello, it's a pleasure to have you here. Welcome to Interactive Portfolio by Nívea Ribeiro!") {
-      if (alexAudio) {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
+    const translations = {
+      "en-US": {
+        intro: "Hello! I'm Alex\nWelcome to the Interactive Portfolio of Nívea Ribeiro!",
+        subtitle: "Full Stack Software Developer — Interactive Portfolio",
+        startBtn: "Start Presentation"
+      },
+      "pt-BR": {
+        intro: "Olá! Eu sou o Alex\nBem-vindo ao Portfólio Interativo de Nívea Ribeiro!",
+        subtitle: "Desenvolvedora Full Stack — Portfólio Interativo",
+        startBtn: "Iniciar Apresentação"
+      },
+      "es-ES": {
+        intro: "¡Hola! Soy Alex\nBienvenido al Portafolio Interactivo de Nívea Ribeiro!",
+        subtitle: "Desarrolladora Full Stack — Portafolio Interactivo",
+        startBtn: "Iniciar Presentación"
       }
+    };
 
-      try {
-        const response = await fetch("/api/speak", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        });
+    let lang = "en-US";
 
-        if (!response.ok) throw new Error("Erro no TTS");
+    async function initPage() {
+      lang = await getPageLang();
+      const t = translations[lang] || translations["en-US"];
 
-        const audioBlob = await response.blob();
-        alexAudio = new Audio(URL.createObjectURL(audioBlob));
-        alexAudio.play();
+      document.getElementById("subtitle").textContent = t.subtitle;
+      document.getElementById("start-btn").textContent = t.startBtn;
 
-        const btn = document.getElementById("replay-alex");
-        if (btn) {
-          btn.textContent = "🔇";
-          alexAudio.onended = () => {
-            btn.textContent = "🔊";
-            moveAlex();
-          };
+      // Intro + narração
+      const introText = t.intro;
+      let i = 0;
+      function typeWriter() {
+        if (i < introText.length) {
+          document.getElementById("typewriter").textContent += introText.charAt(i);
+          i++;
+          setTimeout(typeWriter, 55);
+        } else {
+          setTimeout(() => {
+            document.getElementById("intro-sequence").style.display = "none";
+            const mainContent = document.getElementById("main-content");
+            mainContent.classList.add("show");
+            const narration = getNarrationForPage(lang);
+            speakAlex(narration, lang);
+          }, 3000);
         }
-      } catch (err) {
-        console.error("❌ Erro ao chamar TTS:", err);
       }
+      typeWriter();
     }
 
-    function toggleReplayAlex() {
-      if (!alexAudio || alexAudio.ended) {
-        speakAlex();
-      } else {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
-        const btn = document.getElementById("replay-alex");
-        if (btn) btn.textContent = "🔊";
-      }
-    }
-
-    const introText = "Hello, it's pleasure to have you here...\nWelcome to Interactive Portfolio Nívea Ribeiro!";
-    let i = 0;
-    function typeWriter() {
-      if (i < introText.length) {
-        document.getElementById("typewriter").textContent += introText.charAt(i);
-        i++;
-        setTimeout(typeWriter, 55);
-      } else {
-        setTimeout(() => {
-          document.getElementById("intro-sequence").style.display = "none";
-          const mainContent = document.getElementById("main-content");
-          mainContent.classList.add("show");
-          speakAlex();
-        }, 1100);
-      }
-    }
-
-    document.getElementById("replay-alex").addEventListener("click", () => { toggleReplayAlex(); });
-    window.addEventListener("load", () => { typeWriter(); });
+    window.addEventListener("load", initPage);
+    document.getElementById("replay-alex").addEventListener("click", () => {
+      const narration = getNarrationForPage(lang);
+      toggleReplayAlex(narration, lang);
+    });
   </script>
 </body>
 </html>

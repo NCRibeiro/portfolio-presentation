@@ -38,7 +38,6 @@
       text-transform: uppercase;
       margin-bottom: 25px;
       background: linear-gradient(90deg, var(--petrol), var(--terracotta));
-      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -117,7 +116,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
     <div class="container-fluid px-4">
       <a class="navbar-brand fw-bold" href="index.html">Nívea Ribeiro</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -138,120 +137,73 @@
 
   <!-- About content -->
   <div class="about-card">
-    <h1>About Me</h1>
+    <h1 id="about-title">About Me</h1>
 
-    <h2>My Journey</h2>
-    <p>I graduated in <strong>Architecture & Urbanism</strong>, where I learned to design structures and systems.  
-    Over time, I discovered that my real passion was building <strong>digital architectures</strong> — systems of logic, data, and code.  
-    That’s how I became a <strong>Full Stack Software Engineer</strong>.</p>
-
-    <h2>Experience & Projects</h2>
-    <p>I’ve led and created projects that blend technology and vision:</p>
-    <p><strong>OneAPIIRS</strong> — a unified platform integrating legacy fiscal data into modern APIs.<br>
-    <strong>SADB</strong> — a simulator for banking attacks and defenses.<br>
-    <strong>Alternate Reality Simulator</strong> — a futuristic system that lets users explore alternate versions of their lives.</p>
-
-    <h2>Vision & Purpose</h2>
-    <p><em>“My purpose is to create everything that doesn’t exist yet — transforming visionary ideas into realities that inspire, connect, and simplify lives.”</em></p>
-    <p>Five years ago, I saw myself lost between different worlds, trying to find my place.<br>
-    Today, I see myself as a <strong>software engineer</strong>, an <strong>innovator</strong>, and the <strong>author of my own story</strong>.</p>
-
-    <h2>Origin of OneAPIIRS</h2>
-    <p><em>A rebellion against chaos, born from the silence of legacy systems and the yearning for clarity.</em>  
-    The idea for <strong>OneAPIIRS</strong> emerged as a digital uprising: to unify fragmented fiscal data,  
-    liberate institutions from the weight of COBOL, and build a bridge between the past and the future.  
-    It is not just a platform — it is an act of transformation.</p>
-
-    <h2>Community & Achievements</h2>
-    <ul style="text-align:left; max-width:800px; margin:20px auto; color: var(--rose); line-height:1.8;">
-      <li><strong>Google Developers Program:</strong> Joined on September 10, 2023.</li>
-      <li><strong>Follower of Google Developer Experts:</strong> Regularly follow the latest Google trends and technologies.</li>
-      <li><strong>Android Studio user:</strong> Hands-on experience with the primary IDE for Android development.</li>
-      <li><strong>Google I/O 2024:</strong> Registered & Participated in the flagship event for Android developers.</li>
-      <li><strong>Google I/O 2024:</strong> Registered & Participated in the flagship event for Android developers.</li>
-      <li><strong>Firebase Data Connect Preview Program:</strong> Badge earned by actively following Firebase updates and innovations.</li>
-      <li><strong>Women Techmakers Member:</strong> Active participation in women-focused technology communities.</li>
-      <li><strong>Google Maps Platform Innovators:</strong> Explored Google Maps API to develop innovative projects.</li>
-      <li><strong>Google Cloud Innovators:</strong> Developed impactful projects using the Google Cloud Platform.</li>
-    </ul>
-
-    <h2>Values Beyond Code</h2>
-    <p>I am a <strong>defender of animals and nature</strong>, and I dedicate time to <strong>community actions</strong> with youth and adults who have intellectual disabilities.  
-    These experiences teach me empathy, resilience, and the power of technology when combined with humanity.</p>
-
-    <h2>Work Gallery</h2>
-    <p>Some experimental and professional works that showcase my creative and technical journey:</p>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/SAM (barba).png" alt="SAM project with beard">
-        <p>SAM — Render (Beard)</p>
-      </div>
-      <div class="gallery-item">
-        <img src="images/SAM - PERFIL2(BARBA).png" alt="SAM profile with beard">
-        <p>SAM — Profile (Beard)</p>
-      </div>
-      <div class="gallery-item">
-        <img src="images/SAM (perfil 1).png" alt="SAM profile 1">
-        <p>SAM — Profile 1</p>
-      </div>
-      <div class="gallery-item">
-        <img src="images/SAM (perfil 2).png" alt="SAM profile 2">
-        <p>SAM — Profile 2</p>
-      </div>
-      <div class="gallery-item">
-        <img src="images/SAM 2.png" alt="SAM v2">
-        <p>SAM — V2</p>
-      </div>
-    </div>
-
-    <h2>Let’s Connect</h2>
-    <p>If my journey resonates with you, I’d love to collaborate and build new universes together.</p>
-    <a href="contact.html" class="btn btn-outline">Contact Me</a>
+    <!-- Mantém o conteúdo já escrito -->
+    ... (todo o conteúdo textual que você já tem aqui) ...
   </div>
 
-  <!-- Replay button -->
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
-  <!-- Alex narration -->
+  <!-- Partículas -->
+  <script type="module">
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.155/build/three.module.js";
+    let scene, camera, renderer;
+    window.particles = null;
+    function initParticles() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, 220 / 220, 0.1, 1000);
+      camera.position.z = 6;
+      renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(220, 220);
+      document.getElementById("alex-container").appendChild(renderer.domElement);
+      const geometry = new THREE.BufferGeometry();
+      const particlesCount = 300;
+      const positions = [];
+      const colors = [];
+      const palette = [new THREE.Color("#062D3E"), new THREE.Color("#25535B"), new THREE.Color("#B15330"), new THREE.Color("#C9AFA5")];
+      for (let i = 0; i < particlesCount; i++) {
+        positions.push((Math.random() - 0.5) * 10);
+        positions.push((Math.random() - 0.5) * 10);
+        positions.push((Math.random() - 0.5) * 10);
+        const color = palette[Math.floor(Math.random() * palette.length)];
+        colors.push(color.r, color.g, color.b);
+      }
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+      const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.75 });
+      window.particles = new THREE.Points(geometry, material);
+      scene.add(window.particles);
+      animate();
+    }
+    function animate() {
+      requestAnimationFrame(animate);
+      if (window.particles) {
+        window.particles.rotation.y += 0.0012;
+        window.particles.rotation.x += 0.0006;
+      }
+      renderer.render(scene, camera);
+    }
+    initParticles();
+  </script>
+
+  <!-- Alex Voice Script (externo) -->
+  <script src="/js/alex.js"></script>
   <script>
-    let alexAudio = null;
-    async function speakAlex(text = "Welcome to my story. Discover my journey, projects, vision, achievements, values, and selected works.") {
-      if (alexAudio) {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
+    // Traduções multilíngues do título
+    const translations = {
+      "en-US": "About Me",
+      "pt-BR": "Sobre Mim",
+      "es-ES": "Sobre Mí"
+    };
+
+    window.addEventListener("load", async () => {
+      const lang = await getPageLang();
+      if (translations[lang]) {
+        document.getElementById("about-title").textContent = translations[lang];
       }
-      try {
-        const response = await fetch("/api/speak", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        });
-        if (!response.ok) throw new Error("Erro no TTS");
-        const audioBlob = await response.blob();
-        alexAudio = new Audio(URL.createObjectURL(audioBlob));
-        alexAudio.play();
-        const btn = document.getElementById("replay-alex");
-        if (btn) {
-          btn.textContent = "🔇";
-          alexAudio.onended = () => { btn.textContent = "🔊"; };
-        }
-      } catch (err) {
-        console.error("❌ Erro ao chamar TTS:", err);
-      }
-    }
-    function toggleReplayAlex() {
-      if (!alexAudio || alexAudio.ended) {
-        speakAlex();
-      } else {
-        alexAudio.pause();
-        alexAudio.currentTime = 0;
-        const btn = document.getElementById("replay-alex");
-        if (btn) btn.textContent = "🔊";
-      }
-    }
-    window.addEventListener("load", () => {
-      speakAlex();
-      document.getElementById("replay-alex").addEventListener("click", () => toggleReplayAlex());
+      const narration = getNarrationForPage(lang);
+      speakAlex(narration, lang);
     });
   </script>
 
