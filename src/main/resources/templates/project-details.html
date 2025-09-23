@@ -14,19 +14,32 @@
       padding-top: 80px;
     }
     h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 800;
       background: linear-gradient(90deg, #25535B, #B15330);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 20px;
     }
-    .project-card {
-      background: rgba(255, 255, 255, 0.05);
+    .description-section {
+      background: rgba(255,255,255,0.05);
       border: 1px solid #25535B;
       border-radius: 15px;
       padding: 30px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .side-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid #B15330;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      height: 100%;
+    }
+    .side-card h5 {
+      font-weight: 600;
+      color: #C9AFA5;
+      margin-bottom: 15px;
     }
     .btn-outline {
       border: 1px solid #B15330;
@@ -62,24 +75,32 @@
   </nav>
 
   <div class="container mt-5">
-    <div class="project-card">
-      <h1 th:text="${project.title}">Project Title</h1>
-      <p class="lead" th:text="${project.shortDescription}">Short description</p>
+    <div class="row g-4">
+      <!-- Coluna esquerda: Descrição -->
+      <div class="col-lg-8">
+        <div class="description-section">
+          <h1 th:text="${project.title}">Project Title</h1>
+          <p class="lead" th:text="${project.shortDescription}">Short description</p>
+          <hr class="my-4">
+          <h5>📌 Full Description</h5>
+          <p th:text="${project.description}">Full project description goes here...</p>
+        </div>
+      </div>
 
-      <hr class="my-4">
-
-      <h5>📌 Full Description</h5>
-      <p th:text="${project.description}">Full project description goes here...</p>
-
-      <h5>🛠 Stack</h5>
-      <p th:text="${project.technologies}">Tech stack</p>
-
-      <div class="mt-4">
-        <a th:if="${project.githubUrl != null}"
-           th:href="${project.githubUrl}"
-           target="_blank" class="btn btn-outline me-2">View on GitHub</a>
-
-        <a href="/projects" class="btn btn-outline">⬅ Back to Projects</a>
+      <!-- Coluna direita: Stack e Links -->
+      <div class="col-lg-4">
+        <div class="side-card d-flex flex-column justify-content-between">
+          <div>
+            <h5>🛠 Tech Stack</h5>
+            <p th:text="${project.technologies}">Tech stack</p>
+          </div>
+          <div class="mt-3">
+            <a th:if="${project.githubUrl != null}"
+               th:href="${project.githubUrl}"
+               target="_blank" class="btn btn-outline w-100 mb-2">View on GitHub</a>
+            <a href="/projects" class="btn btn-outline w-100">⬅ Back to Projects</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
       font-family: 'Exo 2', sans-serif;
       letter-spacing: 0.5px;
       overflow: hidden;
-      background: linear-gradient(90deg, #fcfcfc, #cbc9c9, #bab5b5);
+      background: linear-gradient(90deg, #fcfcfc, #e2e2e2ff, #e8e8e8ff);
       color: #fff;
       padding-top: 70px;
     }
@@ -138,16 +138,16 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
     <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold" href="index.html">Nívea Ribeiro</a>
+      <a class="navbar-brand fw-bold" th:href="@{/}">Nívea Ribeiro</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link home-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link project-link" href="project.html">Projects</a></li>
-          <li class="nav-item"><a class="nav-link contact-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link about-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link home-link" th:href="@{/}">Home</a></li>
+          <li class="nav-item"><a class="nav-link project-link" th:href="@{/projects}">Projects</a></li>
+          <li class="nav-item"><a class="nav-link contact-link" th:href="@{/contact}">Contact</a></li>
+          <li class="nav-item"><a class="nav-link about-link" th:href="@{/about}">About</a></li>
         </ul>
       </div>
     </div>
@@ -160,9 +160,9 @@
 
   <div id="main-content">
     <h1 id="title-name">Nívea Ribeiro</h1>
-    <p id="subtitle" class="lead mb-4">Full Stack Software Developer — Interactive Portfolio</p>
+    <p id="subtitle" class="lead mb-4">Software Engineer — Interactive Portfolio</p>
     <div class="d-flex justify-content-center flex-wrap">
-      <a href="project.html" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
+      <a th:href="@{/projects}" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
     </div>
   </div>
 
@@ -170,37 +170,35 @@
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="alex.js"></script>
-
   <script>
     const translations = {
       "en-US": {
         intro: "Hello! I'm Alex\nWelcome to the Interactive Portfolio of Nívea Ribeiro!",
-        subtitle: "Full Stack Software Developer — Interactive Portfolio",
+        subtitle: "Software Engineer — Interactive Portfolio",
         startBtn: "Start Presentation"
       },
       "pt-BR": {
         intro: "Olá! Eu sou o Alex\nBem-vindo ao Portfólio Interativo de Nívea Ribeiro!",
-        subtitle: "Desenvolvedora Full Stack — Portfólio Interativo",
+        subtitle: "Engenheira de Software — Portfólio Interativo",
         startBtn: "Iniciar Apresentação"
       },
       "es-ES": {
         intro: "¡Hola! Soy Alex\nBienvenido al Portafolio Interactivo de Nívea Ribeiro!",
-        subtitle: "Desarrolladora Full Stack — Portafolio Interactivo",
+        subtitle: "Ingeniera de Software — Portafolio Interactivo",
         startBtn: "Iniciar Presentación"
       }
     };
 
     let lang = "en-US";
 
-    async function initPage() {
-      lang = await getPageLang();
+    function initPage() {
+      lang = navigator.language || "en-US";
       const t = translations[lang] || translations["en-US"];
 
       document.getElementById("subtitle").textContent = t.subtitle;
       document.getElementById("start-btn").textContent = t.startBtn;
 
-      // Intro + narração
+      // Intro + efeito typewriter
       const introText = t.intro;
       let i = 0;
       function typeWriter() {
@@ -211,10 +209,7 @@
         } else {
           setTimeout(() => {
             document.getElementById("intro-sequence").style.display = "none";
-            const mainContent = document.getElementById("main-content");
-            mainContent.classList.add("show");
-            const narration = getNarrationForPage(lang);
-            speakAlex(narration, lang);
+            document.getElementById("main-content").classList.add("show");
           }, 3000);
         }
       }
@@ -222,10 +217,6 @@
     }
 
     window.addEventListener("load", initPage);
-    document.getElementById("replay-alex").addEventListener("click", () => {
-      const narration = getNarrationForPage(lang);
-      toggleReplayAlex(narration, lang);
-    });
   </script>
 </body>
 </html>

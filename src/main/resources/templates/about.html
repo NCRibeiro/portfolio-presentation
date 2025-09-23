@@ -23,6 +23,11 @@
       padding-top: 70px;
       overflow-x: hidden;
     }
+    .navbar {
+      background: linear-gradient(145deg, #000000, #062D3E, #111111) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
     .about-card {
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--petrol);
@@ -41,12 +46,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    h2 {
-      font-size: 1.8rem;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      color: var(--rose);
-    }
     p {
       font-size: 1.15rem;
       line-height: 1.6;
@@ -54,37 +53,6 @@
       margin-bottom: 15px;
     }
     strong { color: var(--white); }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .gallery-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--petrol);
-      border-radius: 14px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gallery-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px rgba(185,83,48,0.4);
-      border-color: var(--terracotta);
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-    .gallery-item p {
-      margin: 10px 0;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--rose);
-    }
 
     #replay-alex {
       position: fixed;
@@ -116,18 +84,18 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold" href="index.html">Nívea Ribeiro</a>
+      <a class="navbar-brand fw-bold" th:href="@{/}">Nívea Ribeiro</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="project.html">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/projects}">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" th:href="@{/about}">About</a></li>
         </ul>
       </div>
     </div>
@@ -138,9 +106,7 @@
   <!-- About content -->
   <div class="about-card">
     <h1 id="about-title">About Me</h1>
-
-    <!-- Mantém o conteúdo já escrito -->
-    ... (todo o conteúdo textual que você já tem aqui) ...
+    <div id="about-text"></div>
   </div>
 
   <button id="replay-alex" title="Replay Alex narration">🔊</button>
@@ -190,20 +156,37 @@
   <!-- Alex Voice Script (externo) -->
   <script src="/js/alex.js"></script>
   <script>
-    // Traduções multilíngues do título
     const translations = {
-      "en-US": "About Me",
-      "pt-BR": "Sobre Mim",
-      "es-ES": "Sobre Mí"
+      "en-US": `
+        <p>I am <strong>Nívea Ribeiro</strong> — a software engineer who transforms complexity into clarity and ideas into scalable, elegant solutions. My journey began in <em>Architecture & Urbanism</em>, where I learned to design with structure, vision, and precision. Today, I bring that same mindset into the digital world.</p>
+        <p>Projects like <strong>OneAPIIRS</strong> (modernizing COBOL fiscal data, bridging mainframes to modern APIs) and <strong>SADB</strong> (a simulated banking system to research and defend against real hacker attacks) reflect my commitment to impact and innovation.</p>
+        <p>I also built AI-based projects such as mental health assistants, alternate reality simulators, and computer vision models for agriculture — and even this website, crafted with love, one of my favorites, for uniting technology and personal expression.</p>
+        <p>I am part of the <strong>Google Developers Program</strong> (since 2023), a proud <strong>Women Techmakers</strong> member, representing Brazilian women in tech, and a <strong>Google Maps Platform Innovator</strong>. As a <strong>Google Cloud Innovator</strong>, I design scalable solutions, while following <strong>Firebase Data Connect Preview</strong> and <strong>Google Developer Experts</strong>.</p>
+        <p>I joined <strong>Google I/O 2024</strong> and <strong>2025</strong>, connecting directly to Google’s ecosystem and using <strong>Android Studio</strong> daily.</p>
+        <p>Outside of tech, I’m the proud mom of <strong>Bello José</strong>, <strong>Mell Emilia</strong>, and <strong>Joe</strong> 🐾. I am also a defender of animal rights and nature, believing that innovation matters most when aligned with life and the planet’s future.</p>
+      `,
+      "pt-BR": `
+        <p>Eu sou <strong>Nívea Ribeiro</strong> — uma engenheira de software que transforma complexidade em clareza e ideias em soluções escaláveis e elegantes. Minha trajetória começou em <em>Arquitetura & Urbanismo</em>, onde aprendi a projetar com estrutura, visão e precisão. Hoje, trago essa mesma mentalidade para o mundo digital.</p>
+        <p>Projetos como o <strong>OneAPIIRS</strong> (modernização de dados fiscais em COBOL, conectando mainframes a APIs modernas) e o <strong>SADB</strong> (sistema bancário simulado para pesquisa e defesa contra ataques hackers reais) refletem meu compromisso com impacto e inovação.</p>
+        <p>Também desenvolvi projetos baseados em IA, como assistentes de saúde mental, simuladores de realidades alternativas e modelos de visão computacional aplicados à agricultura — e até este próprio site, criado com muito carinho, e que considero um dos meus preferidos, por unir tecnologia e expressão pessoal.</p>
+        <p>Faço parte do <strong>Google Developers Program</strong> (desde 2023), sou membro da comunidade <strong>Women Techmakers (Google)</strong>, representando as mulheres brasileiras na tecnologia, e também dos <strong>Google Maps Platform Innovators</strong>. Como <strong>Google Cloud Innovator</strong>, desenvolvo soluções escaláveis, acompanhando tendências do <strong>Firebase Data Connect Preview</strong> e dos <strong>Google Developer Experts</strong>.</p>
+        <p>Participei do <strong>Google I/O 2024</strong> e <strong>2025</strong>, conectando-me diretamente ao ecossistema do Google e usando o <strong>Android Studio</strong> diariamente.</p>
+        <p>Fora da tecnologia, sou mãe orgulhosa de <strong>Bello José</strong>, <strong>Mell Emilia</strong> e <strong>Joe</strong> 🐾. Também sou defensora da causa animal e da natureza, acreditando que a verdadeira inovação só faz sentido quando alinhada ao cuidado com a vida e o futuro do planeta.</p>
+      `,
+      "es-ES": `
+        <p>Soy <strong>Nívea Ribeiro</strong> — una ingeniera de software que transforma la complejidad en claridad y las ideas en soluciones escalables y elegantes. Mi trayectoria comenzó en <em>Arquitectura & Urbanismo</em>, donde aprendí a diseñar con estructura, visión y precisión. Hoy aplico esa mentalidad al mundo digital.</p>
+        <p>Proyectos como <strong>OneAPIIRS</strong> (modernización de datos fiscales en COBOL, conectando mainframes a APIs modernas) y <strong>SADB</strong> (sistema bancario simulado para investigación y defensa contra ataques hackers reales) reflejan mi compromiso con impacto e innovación.</p>
+        <p>También desarrollé proyectos con IA, como asistentes de salud mental, simuladores de realidades alternativas y modelos de visión por computadora aplicados a la agricultura — e incluso este mismo sitio web, creado con mucho cariño, que considero uno de mis favoritos, por unir tecnología y expresión personal.</p>
+        <p>Formo parte del <strong>Google Developers Program</strong> (desde 2023), soy miembro de <strong>Women Techmakers (Google)</strong>, representando a las mujeres brasileñas en tecnología, y de <strong>Google Maps Platform Innovators</strong>. Como <strong>Google Cloud Innovator</strong>, desarrollo soluciones escalables y sigo de cerca las tendencias de <strong>Firebase Data Connect Preview</strong> y <strong>Google Developer Experts</strong>.</p>
+        <p>Participé en <strong>Google I/O 2024</strong> y <strong>2025</strong>, conectándome directamente con el ecosistema de Google y usando <strong>Android Studio</strong> a diario.</p>
+        <p>Fuera de la tecnología, soy madre orgullosa de <strong>Bello José</strong>, <strong>Mell Emilia</strong> y <strong>Joe</strong> 🐾. También soy defensora de la causa animal y la naturaleza, creyendo que la verdadera innovación solo tiene sentido cuando está alineada con el cuidado de la vida y el futuro del planeta.</p>
+      `
     };
 
-    window.addEventListener("load", async () => {
-      const lang = await getPageLang();
-      if (translations[lang]) {
-        document.getElementById("about-title").textContent = translations[lang];
-      }
-      const narration = getNarrationForPage(lang);
-      speakAlex(narration, lang);
+    window.addEventListener("load", () => {
+      const lang = navigator.language || "en-US";
+      const content = translations[lang] || translations["en-US"];
+      document.getElementById("about-text").innerHTML = content;
     });
   </script>
 
