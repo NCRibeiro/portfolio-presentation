@@ -1,17 +1,13 @@
-# Usar imagem base do Java 17
-FROM eclipse-temurin:17-jdk-alpine
-
-# Diretório de trabalho
+# Etapa de build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# Copiar todo o código
 COPY . .
+RUN mvn clean package -DskipTests
 
-# Compilar o projeto com Maven
-RUN ./mvnw clean package -DskipTests || mvn clean package -DskipTests
+# Etapa de runtime
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Expor a porta correta (8091)
 EXPOSE 8091
-
-# Rodar o JAR gerado
-CMD ["java", "-jar", "target/portfolio-presentation-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
