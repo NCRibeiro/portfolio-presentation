@@ -1,38 +1,43 @@
 package com.nivea.portfolio_presentation.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private static final Logger log = LoggerFactory.getLogger(EmailService.class);
+
+    private final JavaMailSender mailSender;
+
+    // ⚙️ Ideal: o destinatário pode vir de application.properties futuramente
+    private static final String RECEIVER_EMAIL = "nc.chagasribeiro@gmail.com";
 
     public void sendEmail(String from, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(RECEIVER_EMAIL);
+            message.setFrom(from != null && !from.isBlank() ? from : "noreply@nivearibeiro.com");
+            message.setSubject(subject != null ? subject : "Mensagem sem assunto");
+            message.setText("""
+                            \ud83d\udce8 Mensagem recebida via portf\u00f3lio interativo:
+                            
+                            De: """ + from + "\n\n" +
+                    "Conteúdo:\n" + text);
 
-            // Email que receberá as mensagens (o seu)
-            message.setTo("nc.chagasribeiro@gmail.com");
-
-            // Assunto do email
-            message.setSubject(subject);
-
-            // Corpo do email
-            message.setText("From: " + from + "\n\n" + text);
-
-            // Envia
             mailSender.send(message);
+            log.info("✅ Email enviado com sucesso de {} para {}", from, RECEIVER_EMAIL);
 
-            System.out.println("Email enviado com sucesso para " + message.getTo()[0]);
         } catch (MailException e) {
-            System.err.println("Erro ao enviar email: " + e.getMessage());
+            log.error("❌ Erro ao enviar email: {}", e.getMessage(), e);
             throw e;
         }
     }
 }
-

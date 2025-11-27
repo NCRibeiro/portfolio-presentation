@@ -1,222 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interactive Portfolio — Nívea Ribeiro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Exo 2', sans-serif;
-      letter-spacing: 0.5px;
-      overflow: hidden;
-      background: linear-gradient(90deg, #fcfcfc, #e2e2e2ff, #e8e8e8ff);
-      color: #fff;
-      padding-top: 70px;
-    }
-    h1 {
-      font-size: 6rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #152a34, #873414);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    p {
-      font-size: 2.2rem;
-      color: #373636;
-      opacity: 0.9;
-      margin-bottom: 1.5rem;
-    }
-    .btn-custom {
-      background: transparent;
-      border: 2px solid #ab5434;
-      color: #625f5d;
-      font-size: 0.9rem;
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      transition: all 0.3s ease;
-      margin: 0 8px;
-    }
-    .btn-custom:hover {
-      background: linear-gradient(70deg, #25535B, #B15330);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(185,83,48,0.6);
-      transform: translateY(-3px);
-    }
-    #intro-sequence {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.6rem;
-      color: #913b13;
-      text-shadow: 0 0 10px rgba(143, 129, 129, 0.71);
-    }
-    #replay-alex {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #1f1f1f;
-      border: 2px solid #25535B;
-      border-radius: 50%;
-      color: #C9AFA5;
-      font-size: 1.3rem;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    #replay-alex:hover {
-      background: #25535B;
-      color: #fff;
-      transform: scale(1.1);
-    }
-    #portal-overlay {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: radial-gradient(circle, #25535B, #B15330, #000);
-      border-radius: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      z-index: 2000;
-      transition: transform 1.5s ease, width 1.5s ease, height 1.5s ease;
-      pointer-events: none;
-    }
-    #portal-overlay.active {
-      width: 300vmax;
-      height: 300vmax;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    #main-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 85vh;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
-    #main-content.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .navbar {
-      padding-top: 0.3rem !important;
-      padding-bottom: 0.3rem !important;
-    }
-    .navbar-brand {
-      font-size: 1.1rem;
-    }
-    .nav-link {
-      font-size: 0.95rem;
-      padding: 0.4rem 0.8rem !important;
-    }
-    #alex-container {
-      position: fixed;
-      width: 180px;
-      height: 180px;
-      z-index: 100;
-      pointer-events: none;
-      bottom: 20px;
-      right: 20px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px);">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold" th:href="@{/}">Nívea Ribeiro</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link home-link" th:href="@{/}">Home</a></li>
-          <li class="nav-item"><a class="nav-link project-link" th:href="@{/projects}">Projects</a></li>
-          <li class="nav-item"><a class="nav-link contact-link" th:href="@{/contact}">Contact</a></li>
-          <li class="nav-item"><a class="nav-link about-link" th:href="@{/about}">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
 
-  <div id="alex-container"></div>
-  <div id="intro-sequence" class="text-center">
-    <pre id="typewriter" class="mb-4"></pre>
-  </div>
+    <!-- Mobile Optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#0d1416" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="robots" content="index, follow" />
 
-  <div id="main-content">
-    <h1 id="title-name">Nívea Ribeiro</h1>
-    <p id="subtitle" class="lead mb-4">Software Engineer — Interactive Portfolio</p>
-    <div class="d-flex justify-content-center flex-wrap">
-      <a th:href="@{/projects}" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
-    </div>
-  </div>
+    <title>Nívea Ribeiro — Systems Architect</title>
+    <link rel="icon" href="/favicon.ico" />
 
-  <div id="portal-overlay"></div>
-  <button id="replay-alex" title="Replay Alex narration">🔊</button>
+    <!-- SEO -->
+    <meta name="title" content="Nívea Ribeiro — Systems Architect" />
+    <meta name="description" content="An interactive platform that combines engineering, systems architecture, and artificial intelligence. Technological experiences with purpose, precision, and high-impact design.." />
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const translations = {
-      "en-US": {
-        intro: "Hello! I'm Alex\nWelcome to the Interactive Portfolio of Nívea Ribeiro!",
-        subtitle: "Software Engineer — Interactive Portfolio",
-        startBtn: "Start Presentation"
-      },
-      "pt-BR": {
-        intro: "Olá! Eu sou o Alex\nBem-vindo ao Portfólio Interativo de Nívea Ribeiro!",
-        subtitle: "Engenheira de Software — Portfólio Interativo",
-        startBtn: "Iniciar Apresentação"
-      },
-      "es-ES": {
-        intro: "¡Hola! Soy Alex\nBienvenido al Portafolio Interactivo de Nívea Ribeiro!",
-        subtitle: "Ingeniera de Software — Portafolio Interactivo",
-        startBtn: "Iniciar Presentación"
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.nivearibeiro.com.br/" />
+    <meta property="og:title" content="Nívea Ribeiro — Systems Architect" />
+    <meta property="og:description" content="An interactive platform that combines engineering, systems architecture, and artificial intelligence. Technological experiences with purpose, precision, and high-impact design.." />
+    <meta property="og:image" content="https://www.nivearibeiro.com.br/static/og/cover.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nívea Ribeiro — Systems Architect" />
+    <meta name="twitter:description" content="An interactive platform that combines engineering, systems architecture, and artificial intelligence. Technological experiences with purpose, precision, and high-impact design.." />
+    <meta name="twitter:image" content="https://www.nivearibeiro.com.br/static/og/cover.jpg" />
+
+    <!-- Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      /* ===== Metallic Essence (estático, estilo Apple/Tesla) ===== */
+      :root {
+        --petrol: #304e52;
+        --terracotta: #b86b3c;
+        --silver: #bfc4c6;
+        --graphite: #1a1d1e;
+        --ink: #0d1416;
+        --soft: #e9eef0;
+        --glow: #e9c8a3;
+        --smoke: #93a2a7;
       }
-    };
-
-    let lang = "en-US";
-
-    function initPage() {
-      lang = navigator.language || "en-US";
-      const t = translations[lang] || translations["en-US"];
-
-      document.getElementById("subtitle").textContent = t.subtitle;
-      document.getElementById("start-btn").textContent = t.startBtn;
-
-      // Intro + efeito typewriter
-      const introText = t.intro;
-      let i = 0;
-      function typeWriter() {
-        if (i < introText.length) {
-          document.getElementById("typewriter").textContent += introText.charAt(i);
-          i++;
-          setTimeout(typeWriter, 55);
-        } else {
-          setTimeout(() => {
-            document.getElementById("intro-sequence").style.display = "none";
-            document.getElementById("main-content").classList.add("show");
-          }, 3000);
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        color: var(--silver-100);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        /* Fundo + imagem, mais leve */
+        background: linear-gradient(180deg, rgba(13, 20, 22, 0.55) 0%, rgba(13, 20, 22, 0.6) 60%, rgba(13, 20, 22, 0.7) 100%), url('/bg/logo1.png') center center / cover no-repeat;
+        /* Em vez de multiply (que escurece muito), use soft-light para “misturar” com a imagem */
+        background-blend-mode: soft-light;
+      }
+      
+      body::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(13, 20, 22, 0.75);
+        z-index: 0;
+      }
+      
+      /* ===== Navbar ===== */
+      .navbar {
+        background: rgba(27, 34, 37, 0.7);
+        backdrop-filter: blur(14px);
+        height: 55px;
+        display: flex;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        align-items: flex-end;
+        padding-bottom: 2px;
+      }
+      
+      .navbar-brand {
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 1.2px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        background: linear-gradient(120deg, #1b4349ff 0%, #a3532cff 60%, #c58861ff 100%);
+      
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+      }
+      
+      @keyframes brandFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
         }
       }
-      typeWriter();
-    }
+      
+      .nav-link {
+        color: #D0D7DA !important;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        transition: opacity 0.25s, transform 0.25s;
+        padding: 0 12px;
+      }
 
-    window.addEventListener("load", initPage);
-  </script>
-</body>
+      .nav-link:hover {
+        color: #fff !important;
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+      
+      /* ===== Flags ===== */
+      #lang-toggle {
+        position: fixed;
+        top: 78px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1200;
+      }
+      #lang-toggle img {
+        width: 40px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        filter: grayscale(0.25) brightness(0.97);
+        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+      }
+      #lang-toggle img:hover {
+        transform: scale(1.06);
+        filter: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      }
+      .active-lang {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      }
+      
+      /* ===== Título com aço escovado ===== */
+      .brand-name {
+        position: relative;
+        display: inline-block;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1.05;
+        margin: 0;
+        font-size: clamp(3.2rem, 6.6vw, 5rem);
+      
+        background: linear-gradient(100deg, #113136ff 0%, #a3532cff 60%, #c58861ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        filter: brightness(1.4) contrast(1.4) saturate(1.1);
+        -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.15);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        margin-top: 40px;
+      }
+      
+      /* Textura de aço escovado horizontal */
+      .brand-name::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0px, rgba(255, 255, 255, 0.025) 1px, transparent 3px);
+        mix-blend-mode: overlay;
+        pointer-events: none;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0.5;
+      }
+      
+      /* Reflexo metálico diagonal (brilho de luz real) */
+      .brand-name::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 40%, transparent 60%, transparent 100%);
+        mix-blend-mode: screen;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0.65;
+      }
+      
+      /* Subtítulo */
+      #subtitle {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+        letter-spacing: 2px;
+        color: #b3ababff;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-top: 14px;
+        margin-bottom: 36px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+      }
+      
+      /* Botão */
+      .btn-custom {
+        font-family: 'Poppins', sans-serif;
+        display: inline-block;
+        position: relative;
+        padding: 8px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #b3ababff;
+        background: linear-gradient(180deg, #29373b 0%, #1a2427 100%);
+        border: 1px solid rgba(203, 144, 80, 0.5);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-top: 40px;
+      }
+      
+      .btn-custom:hover {
+        background: linear-gradient(180deg, #3c4d52 0%, #253034 100%);
+        color: #3e7284ff;
+        border: none;
+        box-shadow: 0 4px 10px rgba(100, 255, 255, 0.15);
+        transform: translateY(-2px);
+      }
+      
+      .btn-custom:active {
+        transform: translateY(1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      }
+      
+      /* Language Toggle */
+      #lang-toggle {
+        position: fixed;
+        top: 78px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1200;
+        animation: fadeIn 0.8s ease 0.6s both;
+      }
+      
+      #lang-toggle img {
+        width: 40px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        filter: grayscale(0.25) brightness(0.97);
+        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+      }
+      
+      #lang-toggle img:hover {
+        transform: scale(1.06);
+        filter: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      }
+      
+      .active-lang {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      }
+      
+      /* Conteúdo principal */
+      #main-content {
+        position: relative;
+        height: 88vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 12px;
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+      }
+      
+      #main-content.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Social Links */
+      .social-links {
+        position: fixed;
+        left: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1100;
+      }
+      
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06); /* leve transparência */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.45); /* ícone claro, neutro */
+      
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+      
+      .social-links a:hover {
+        background: rgba(255, 255, 255, 0.12); /* realce sutil no hover */
+        color: #ffffff; /* ícone branco ao passar o mouse */
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      }
+      
+      /* Container do Alex */
+      #alex-container {
+        position: fixed;
+        inset: 0;
+        bottom: 25px;
+        right: 35px;
+        width: 100px;
+        height: 100px;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+      }
+      
+      #intro-sequence {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #d1cfcdff;
+      }
+      
+      #typewriter {
+        font-size: clamp(1rem, 2.8vw, 1.4rem);
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+      .signature-footer {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        text-align: right;
+        z-index: 10;
+        opacity: 0.85;
+      }
+      
+      .signature-line {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        color: #c6c6c6;
+        background: linear-gradient(90deg, #007177, #b85b2a, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200%;
+        animation: gradientShift 8s ease infinite;
+        user-select: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      
+      .signature-line:hover {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+      
+      .signature-name {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+      
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="/">NÍVEA RIBEIRO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav" id="navbar-links">
+            <li class="nav-item">
+              <a class="nav-link active" id="nav-home" href="/">home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-projects" href="/projects">projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-contact" href="/contact">contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-about" href="/about">about</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="lang-toggle">
+      <img src="https://flagcdn.com/w40/br.png" alt="Português" id="flag-br" loading="lazy" />
+      <img src="https://flagcdn.com/w40/us.png" alt="English" id="flag-us" loading="lazy" />
+    </div>
+
+    <div id="intro-sequence">
+      <pre id="typewriter"></pre>
+    </div>
+
+    <main id="main-content">
+      <h1 class="brand-name" id="title-name" data-text="NÍVEA RIBEIRO">NÍVEA RIBEIRO</h1>
+      <p id="subtitle">Software Engineering - Systems Architecture</p>
+      <a href="/projects" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
+    </main>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4Zm4.5 3.5A4.5 4.5 0 1 1 7.5 12a4.5 4.5 0 0 1 4.5-4.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm4.75-3.75a.75.75 0 1 1-.75.75.75.75 0 0 1 .75-.75Z" />
+        </svg>
+      </a>
+
+      <a href="https://wa.me/5579998116801" target="_blank" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.52 3.48A11.91 11.91 0 0 0 12.07 0a12 12 0 0 0-10.6 17.94L0 24l6.2-1.63A12 12 0 0 0 12 24h.05A12 12 0 0 0 24 11.93a11.91 11.91 0 0 0-3.48-8.45ZM12.05 21.5a9.5 9.5 0 0 1-4.84-1.3l-.35-.2-3.68 1 1-3.59-.23-.37a9.5 9.5 0 1 1 8.1 4.46Zm5.37-7.15c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.95 1.17-.35.22-.65.07a7.73 7.73 0 0 1-2.27-1.4A8.57 8.57 0 0 1 8.8 10c-.17-.3 0-.45.12-.6s.3-.37.45-.55a2 2 0 0 0 .3-.52.54.54 0 0 0-.02-.52c-.07-.15-.65-1.57-.9-2.16s-.47-.5-.67-.5h-.57a1.1 1.1 0 0 0-.8.37A3.3 3.3 0 0 0 5 7.47 5.72 5.72 0 0 0 6.2 10a13 13 0 0 0 5.6 5.3c.78.33 1.38.52 1.85.67a4.44 4.44 0 0 0 2.1.13 3.4 3.4 0 0 0 2.23-1.57 2.76 2.76 0 0 0 .2-1.57c-.1-.15-.26-.22-.46-.3Z" />
+        </svg>
+      </a>
+
+      <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank" aria-label="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5Zm.02 7h4v13H5V10.5Zm7.5 0h3.8v1.9h.05a4.15 4.15 0 0 1 3.75-2.1c4 0 4.75 2.6 4.75 6v7.2h-4v-6.4c0-1.5 0-3.5-2.1-3.5-2.1 0-2.4 1.6-2.4 3.4v6.5h-4V10.5Z" />
+        </svg>
+      </a>
+    </div>
+
+    <div id="alex-container"></div>
+
+    <footer class="signature-footer">
+      <p class="signature-line">
+        Powered by <span class="signature-name">Nívea Ribeiro</span> — Engineered with Precision • Designed for Impact
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const Voice = (() => {
+        let currentLang = 'en-US'
+        let voices = [],
+          selectedVoice = null
+      
+        const copy = {
+          'pt-BR': {
+            typewriter: 'Olá! Eu sou Alex — Bem-vindo(a) ao Portfólio Interativo de Nívea Ribeiro.',
+            subtitle: 'Arquiteta de Sistemas - Full Stack',
+            button: 'Iniciar Apresentação',
+            nav: { home: 'Início', projects: 'Projetos', contact: 'Contato', about: 'Sobre' }
+          },
+          'en-US': {
+            typewriter: "Hello! I'm Alex — Welcome to Nívea Ribeiro Interactive Portfolio.",
+            subtitle: 'Systems Architect - Full Stack',
+            button: 'Start Presentation',
+            nav: { home: 'Home', projects: 'Projects', contact: 'Contact', about: 'About' }
+          }
+        }
+      
+        function loadVoices() {
+          voices = speechSynthesis.getVoices()
+          selectedVoice = voices.find((v) => v.lang === currentLang) || voices[0] || null
+        }
+        speechSynthesis.onvoiceschanged = loadVoices
+      
+        function speak(text) {
+          const u = new SpeechSynthesisUtterance(text)
+          u.voice = selectedVoice
+          u.lang = currentLang
+          u.rate = 1.1
+          u.pitch = 1.05
+          speechSynthesis.speak(u)
+        }
+      
+        function setLang(lang) {
+          currentLang = lang
+          const c = copy[lang]
+          document.getElementById('subtitle').textContent = c.subtitle
+          document.getElementById('start-btn').textContent = c.button
+          ;['nav-home', 'nav-projects', 'nav-contact', 'nav-about'].forEach((id) => {
+            const el = document.getElementById(id)
+            if (el) el.textContent = c.nav[id.split('-')[1]]
+          })
+      
+          document.getElementById('flag-br').classList.toggle('active-lang', lang === 'pt-BR')
+          document.getElementById('flag-us').classList.toggle('active-lang', lang === 'en-US')
+        }
+      
+        function greet() {
+          speak(copy[currentLang].typewriter)
+        }
+      
+        return {
+          setLang,
+          greet,
+          copy,
+          get lang() {
+            return currentLang
+          }
+        }
+      })()
+      
+      document.getElementById('flag-br').addEventListener('click', () => Voice.setLang('pt-BR'))
+      document.getElementById('flag-us').addEventListener('click', () => Voice.setLang('en-US'))
+      
+      function initTypewriter() {
+        const txt = Voice.copy['en-US'].typewriter
+        let i = 0,
+          speed = 50;
+      
+        (function type() {
+          if (i < txt.length) {
+            document.getElementById('typewriter').textContent += txt.charAt(i++)
+            setTimeout(type, speed)
+          } else if (i === txt.length) {
+            setTimeout(() => {
+              document.getElementById('intro-sequence').style.display = 'none'
+              document.getElementById('main-content').classList.add('show')
+              Voice.greet()
+            }, 5000)
+          }
+        })()
+      }
+      
+      window.addEventListener('load', function () {
+        try {
+          Voice.setLang('en-US')
+          initTypewriter()
+        } catch (e) {
+          console.error(e)
+          document.getElementById('main-content').classList.add('show')
+        }
+      })
+    </script>
+  </body>
 </html>

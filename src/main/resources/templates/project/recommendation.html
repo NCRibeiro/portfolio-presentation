@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#0d1416" />
+    <title>SYSTEM BY SIMILARITY — Nívea Ribeiro</title>
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --petrol: #304e52;
+        --terracotta: #b86b3c;
+        --silver: #bfc4c6;
+        --graphite: #1a1d1e;
+        --ink: #0d1416;
+        --soft: #e9eef0;
+        --glow: #e9c8a3;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(145deg, #0a0f11, #0f191d, #0b1113);
+        color: var(--soft);
+      }
+
+      /* NAVBAR */
+      .navbar {
+        background: rgba(18, 25, 28, 0.7);
+        backdrop-filter: blur(12px);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, #113136, #a3532c, #c58861);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* HEADER */
+      .project-header {
+        text-align: center;
+        margin-top: 110px;
+        margin-bottom: 60px;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5vw, 3rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        background: linear-gradient(110deg, #2d616b, #c96639, #e6a479);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+      }
+
+      .project-subtitle {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      /* SECTIONS */
+      .section {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 36px 40px;
+        margin-bottom: 35px;
+        backdrop-filter: blur(4px);
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        background: linear-gradient(120deg, #bfc4c6, #e9c8a3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 18px;
+      }
+
+      .section p, .section li {
+        line-height: 1.7;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+      }
+
+      /* PROJECT CARD */
+      .project-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 45px 45px;
+        margin: 50px auto;
+        max-width: 900px;
+      }
+
+      .project-card h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+      }
+
+      .project-card h3 {
+        font-size: 1.1rem;
+        opacity: 0.85;
+        margin-bottom: 20px;
+      }
+
+      .project-features h4,
+      .project-results h4,
+      .project-tech h4,
+      .project-links h4 {
+        font-size: 1.1rem;
+        margin-top: 25px;
+        margin-bottom: 10px;
+      }
+
+      .project-card ul {
+        line-height: 1.65;
+      }
+
+      .btn-outline {
+        border: 1px solid var(--silver);
+        color: var(--silver);
+        padding: 8px 18px;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: 0.2s;
+      }
+
+      .btn-outline:hover {
+        background: var(--terracotta);
+        border-color: var(--terracotta);
+        color: white;
+      }
+
+      /* SOCIAL */
+      .social-links {
+        position: fixed;
+        left: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .social-links a {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      /* ALEX NARRATION BUTTON */
+      #toggleAlex {
+        margin-top: 30px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: none;
+        background: linear-gradient(120deg, var(--silver), var(--terracotta), var(--petrol));
+        font-weight: bold;
+        cursor: pointer;
+        color: #111;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="/">NÍVEA RIBEIRO</a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li><a class="nav-link" href="/Home">Home</a></li>
+            <li><a class="nav-link active" href="/projects">Projects</a></li>
+            <li><a class="nav-link" href="/Contact">Contacts</a></li>
+            <li><a class="nav-link" href="/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="project-header">
+      <h1 data-text="ONEAPIIRS">SYSTEM BY SIMILARITY</h1>
+      <p class="project-subtitle">Tax order begins where everything connects</p>
+    </header>
+
+    <!-- VISUAL RECOMMENDATION SYSTEM CARD -->
+    <div class="project-card alex-card">
+      <h1>Visual Recommendation System</h1>
+      <h3>AI-based recommendation engine for images and e-commerce personalization.</h3>
+
+      <p>
+        The Visual Recommendation System combines <strong>EfficientNet-B4</strong> image embeddings with collaborative filtering,
+        delivering hyper-personalized recommendations. It adapts dynamically to user behavior and product similarity patterns.
+      </p>
+
+      <div class="project-features">
+        <h4>📌 Key Features</h4>
+        <ul>
+          <li>Hybrid model: embeddings + collaborative filtering</li>
+          <li>Real-time scalable API</li>
+          <li>FAISS vector indexing</li>
+          <li>Adaptive personalization</li>
+        </ul>
+      </div>
+
+      <div class="project-results">
+        <h4>📊 Results</h4>
+        <ul>
+          <li>+20% CTR increase in controlled A/B tests</li>
+          <li>+15% improvement in Average Order Value (AOV)</li>
+        </ul>
+      </div>
+
+      <div class="project-tech">
+        <h4>⚙️ Tech Stack</h4>
+        <ul>
+          <li>EfficientNet-B4 — embeddings</li>
+          <li>Python: TensorFlow / PyTorch</li>
+          <li>FAISS vector search</li>
+          <li>REST APIs + Docker</li>
+        </ul>
+      </div>
+
+      <div class="project-links">
+        <h4>🔗 Learn More</h4>
+        <a href="https://github.com/NCRibeiro/Visual_Recommendation_System_Sytem_by_Similarity"
+           target="_blank"
+           class="btn btn-outline">GitHub</a>
+        <a href="/projects" class="btn btn-outline">← Back to Projects</a>
+      </div>
+
+      <button id="toggleAlex">🔊 Toggle Alex Narration</button>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="social-links">
+      <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank">📸</a>
+      <a href="https://wa.me/5579998116801" target="_blank">💬</a>
+      <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank">in</a>
+    </div>
+
+    <script>
+      const toggleBtn = document.getElementById("toggleAlex");
+      let alexSpeaking = false;
+
+      toggleBtn.addEventListener("click", () => {
+        if (!alexSpeaking) {
+          const text = document.querySelector(".alex-card").innerText;
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = "en-US";
+          speechSynthesis.speak(utterance);
+
+          alexSpeaking = true;
+          toggleBtn.textContent = "⏹ Stop Alex Narration";
+        } else {
+          speechSynthesis.cancel();
+          alexSpeaking = false;
+          toggleBtn.textContent = "🔊 Toggle Alex Narration";
+        }
+      });
+    </script>
+
+  </body>
+</html>

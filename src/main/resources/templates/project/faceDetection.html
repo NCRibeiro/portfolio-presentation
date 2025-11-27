@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Real-Time Face Detection — Nívea Ribeiro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      :root {
+        --petrol: #304e52;
+        --terracotta: #b86b3c;
+        --silver: #bfc4c6;
+        --graphite: #1a1d1e;
+        --ink: #0d1416;
+        --soft: #e9eef0;
+        --glow: #e9c8a3;
+        --smoke: #93a2a7;
+      }
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-size: 1.1rem;
+        letter-spacing: 0.3px;
+        line-height: 1.7;
+        font-weight: 400;
+        margin-bottom: 10px;
+        font-family: 'Poppins', sans-serif;
+        color: var(--soft);
+        background: radial-gradient(1200px 640px at 85% -10%, rgba(48, 78, 82, 0.22), transparent 60%), radial-gradient(900px 520px at -10% 100%, rgba(184, 107, 60, 0.18), transparent 60%), linear-gradient(145deg, #0a0f11 0%, #0e1618 32%, #0f1a1e 68%, #0b1113 100%);
+        overflow-x: hidden;
+      }
+      
+      /* NAVBAR */
+      .navbar {
+        background: rgba(18, 25, 28, 0.7);
+        backdrop-filter: blur(14px);
+        height: 55px;
+        align-items: flex-end;
+        padding-bottom: 2px;
+        font-family: 'Poppins', sans-serif;
+      }
+      
+      .navbar-brand {
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, #113136ff 0%, #a3532cff 60%, #c58861ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+      }
+      
+      .nav-link {
+        color: #d0d7da !important;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        transition: opacity 0.25s, transform 0.25s;
+        padding: 0 12px;
+      }
+      
+      .nav-link:hover {
+        color: #113136ff !important;
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+      
+      /* FLAGS */
+      #lang-toggle {
+        position: fixed;
+        top: 78px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1200;
+      }
+      
+      #lang-toggle img {
+        width: 40px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        filter: grayscale(0.25) brightness(0.97);
+        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+      }
+      
+      #lang-toggle img:hover {
+        transform: scale(1.06);
+        filter: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      }
+      
+      .active-lang {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      }
+      
+      /* HEADER */
+      .project-header {
+        text-align: center;
+        margin-top: 120px;
+        margin-bottom: 70px;
+      }
+      
+      h1 {
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(2.6rem, 5.4vw, 3.2rem);
+        letter-spacing: 1.15px;
+        line-height: 1.1;
+        display: inline-block;
+        background: linear-gradient(110deg, #2d616bff 0%, #c96639ff 58%, #e6a479ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        position: relative;
+        filter: brightness(1.35) contrast(1.35) saturate(1.05);
+        -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.15);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+      
+      h1::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 3px);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        mix-blend-mode: overlay;
+        opacity: 0.55;
+      }
+      
+      .project-subtitle {
+        font-size: 0.95rem;
+        color: #cacacaff;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px;
+        margin-top: 16px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+      }
+      
+      /* SECTIONS (CARDS) */
+      .section {
+        background: rgba(255, 255, 255, 0.045);
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 36px 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      }
+      
+      .section:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 44px rgba(184, 107, 60, 0.35);
+        border-color: rgba(191, 196, 198, 0.25);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        margin-bottom: 16px;
+        background: #afa392ff;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1.2px;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+      }
+      
+      /* ===== TEXTO DOS CARDS ===== */
+      .section p,
+      .section li,
+      .section ol li {
+        font-size: 0.85rem;
+        line-height: 1.75; /* mais espaçado */
+        letter-spacing: 0.6px;
+        color: var(--soft);
+        opacity: 0.92;
+        margin-bottom: 8px;
+      }
+      
+      /* ===== Social Links (translúcidos) ===== */
+      .social-links {
+        position: fixed;
+        left: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1100;
+      }
+      
+      .social-links a {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+      }
+      
+      .social-links a:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      }
+      
+      /* ===== Alex Chat (sem partículas) ===== */
+      #alex-launcher {
+        position: fixed;
+        bottom: 60px;
+        right: 22px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(48, 78, 82, 0.85), rgba(184, 107, 60, 0.9));
+        color: #ffffff;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        z-index: 1200;
+      }
+      
+      #alex-launcher:hover {
+        transform: scale(1.06);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      }
+      
+      #alex-chat {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        width: min(92vw, 380px);
+        max-height: 70vh;
+        background: linear-gradient(180deg, rgba(13, 20, 22, 0.96), rgba(9, 16, 18, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        display: none;
+        overflow: hidden;
+        z-index: 1200;
+        backdrop-filter: blur(8px);
+      }
+      
+      .alex-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px 8px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .alex-header-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        background: linear-gradient(90deg, var(--petrol), var(--terracotta), var(--silver));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .alex-close {
+        background: transparent;
+        border: none;
+        color: #d2d2d2;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      
+      .alex-body {
+        padding: 12px;
+        overflow: auto;
+        max-height: 52vh;
+      }
+      
+      .alex-msg {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      
+      .alex-bubble {
+        padding: 10px 12px;
+        border-radius: 12px;
+        max-width: 85%;
+        line-height: 1.45;
+        font-size: 0.98rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-alex {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-user {
+        background: rgba(48, 78, 82, 0.18);
+      }
+      
+      .alex-input {
+        display: flex;
+        gap: 8px;
+        padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.2);
+      }
+      
+      .alex-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border-radius: 999px;
+        padding: 10px 14px;
+        outline: none;
+      }
+      
+      .alex-input button {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 16px;
+        color: #111111;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--silver), var(--terracotta), var(--petrol));
+      }
+      
+      .signature-footer {
+        position: fixed;
+        right: 22px;
+        bottom: 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.6px;
+        z-index: 900;
+        font-weight: 600;
+        background: linear-gradient(110deg, #2d616bff 0%, #c96639ff 58%, #e6a479ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Project Card -->
+    <div class="project-card alex-card">
+      <h1>Real-Time Face Detection</h1>
+      <h3>Industrial-grade access control powered by YOLOv8</h3>
+
+      <!-- Summary -->
+      <p>
+        <strong>Summary:</strong> A robust access control solution leveraging <strong>YOLOv8</strong> for real-time face detection, optimized for edge devices and complex industrial environments.
+      </p>
+
+      <!-- Features -->
+      <div class="project-features">
+        <h4>📌 Key Features</h4>
+        <ul>
+          <li>⚡ Real-time face detection optimized for edge deployment</li>
+          <li>🌒 Reliable under low-light and varied-angle conditions</li>
+          <li>
+            🔍 Optimized with <strong>ONNX/TensorRT</strong> for low-latency inference
+          </li>
+          <li>📊 Scalable to multi-camera surveillance systems</li>
+          <li>🔐 Integration-ready for biometric authentication</li>
+        </ul>
+      </div>
+
+      <!-- Tech Highlights -->
+      <div class="project-tech">
+        <h4>⚙️ Tech Highlights</h4>
+        <ul>
+          <li>YOLOv8 + PyTorch — detection backbone</li>
+          <li>OpenCV — real-time video pipelines</li>
+          <li>ONNX/TensorRT — optimized edge inference</li>
+          <li>NVIDIA Jetson devices for deployment</li>
+          <li>Edge quantization + augmentations</li>
+        </ul>
+      </div>
+
+      <!-- Results -->
+      <div class="project-results">
+        <h4>📊 Results</h4>
+        <p>
+          Achieved <strong>95% accuracy</strong> in harsh industrial conditions while maintaining real-time performance.
+        </p>
+      </div>
+
+      <!-- Status -->
+      <div class="project-status">
+        <h4>🚀 Status</h4>
+        <p>Prototype deployed. Next step: full multi-camera integration and expansion to biometric-based authentication systems.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="project-links">
+        <h4>🔗 Learn More</h4>
+        <a href="https://github.com/NCRibeiro/real-time-face-detection" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="/projects" class="btn btn-outline">← Back to Projects</a>
+      </div>
+
+      <!-- Alex Controls -->
+      <div class="alex-controls">
+        <button id="toggleAlex">🔊 Toggle Alex Narration</button>
+        <canvas id="alexParticles"></canvas>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Alex Narration
+      const toggleBtn = document.getElementById('toggleAlex')
+      let alexSpeaking = false
+      
+      toggleBtn.addEventListener('click', () => {
+        if (!alexSpeaking) {
+          const text = document.querySelector('.alex-card').innerText
+          const utterance = new SpeechSynthesisUtterance(text)
+          utterance.lang = 'en-US'
+          speechSynthesis.speak(utterance)
+          alexSpeaking = true
+          toggleBtn.textContent = '⏹ Stop Alex Narration'
+        } else {
+          speechSynthesis.cancel()
+          alexSpeaking = false
+          toggleBtn.textContent = '🔊 Toggle Alex Narration'
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    /**
-     * Página inicial do portfólio.
-     * Mapeia a raiz ("/") para o template index.html.
-     */
-    @GetMapping({"/", "/home"})
+    @GetMapping("/")
     public String home() {
-        return "index"; // carrega index.html em templates
+        return "index";
     }
+
 }

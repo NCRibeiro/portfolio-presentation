@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#0d1416" />
+    <title>SADB — Nívea Ribeiro</title>
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --petrol: #304e52;
+        --terracotta: #b86b3c;
+        --silver: #bfc4c6;
+        --graphite: #1a1d1e;
+        --ink: #0d1416;
+        --soft: #e9eef0;
+        --glow: #e9c8a3;
+        --smoke: #93a2a7;
+      }
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-size: 1.1rem;
+        letter-spacing: 0.3px;
+        line-height: 1.7;
+        font-weight: 400;
+        margin-bottom: 10px;
+        font-family: 'Poppins', sans-serif;
+        color: var(--soft);
+        background: radial-gradient(1200px 640px at 85% -10%, rgba(48, 78, 82, 0.22), transparent 60%), radial-gradient(900px 520px at -10% 100%, rgba(184, 107, 60, 0.18), transparent 60%), linear-gradient(145deg, #0a0f11 0%, #0e1618 32%, #0f1a1e 68%, #0b1113 100%);
+        overflow-x: hidden;
+      }
+      
+      /* NAVBAR */
+      .navbar {
+        background: rgba(18, 25, 28, 0.7);
+        backdrop-filter: blur(14px);
+        height: 55px;
+        align-items: flex-end;
+        padding-bottom: 2px;
+        font-family: 'Poppins', sans-serif;
+      }
+      
+      .navbar-brand {
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, #113136ff 0%, #a3532cff 60%, #c58861ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+      }
+      
+      .nav-link {
+        color: #d0d7da !important;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        transition: opacity 0.25s, transform 0.25s;
+        padding: 0 12px;
+      }
+      
+      .nav-link:hover {
+        color: #113136ff !important;
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+      
+      /* FLAGS */
+      #lang-toggle {
+        position: fixed;
+        top: 78px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1200;
+      }
+      
+      #lang-toggle img {
+        width: 40px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        filter: grayscale(0.25) brightness(0.97);
+        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+      }
+      
+      #lang-toggle img:hover {
+        transform: scale(1.06);
+        filter: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      }
+      
+      .active-lang {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      }
+      
+      /* HEADER */
+      .project-header {
+        text-align: center;
+        margin-top: 120px;
+        margin-bottom: 70px;
+      }
+      
+      h1 {
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(2.6rem, 5.4vw, 3.2rem);
+        letter-spacing: 1.15px;
+        line-height: 1.1;
+        display: inline-block;
+        background: linear-gradient(110deg, #2d616bff 0%, #c96639ff 58%, #e6a479ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        position: relative;
+        filter: brightness(1.35) contrast(1.35) saturate(1.05);
+        -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.15);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+      
+      h1::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 3px);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        mix-blend-mode: overlay;
+        opacity: 0.55;
+      }
+      
+      .project-subtitle {
+        font-size: 0.95rem;
+        color: #cacacaff;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px;
+        margin-top: 16px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+      }
+      
+      /* SECTIONS (CARDS) */
+      .section {
+        background: rgba(255, 255, 255, 0.045);
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 36px 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      }
+      
+      .section:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 44px rgba(184, 107, 60, 0.35);
+        border-color: rgba(191, 196, 198, 0.25);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        margin-bottom: 16px;
+        background: #afa392ff;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1.2px;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+      }
+      
+      /* ===== TEXTO DOS CARDS ===== */
+      .section p,
+      .section li,
+      .section ol li {
+        font-size: 0.85rem;
+        line-height: 1.75; /* mais espaçado */
+        letter-spacing: 0.6px;
+        color: var(--soft);
+        opacity: 0.92;
+        margin-bottom: 8px;
+      }
+      
+      /* ===== Social Links (translúcidos) ===== */
+      .social-links {
+        position: fixed;
+        left: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1100;
+      }
+      
+      .social-links a {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+      }
+      
+      .social-links a:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      }
+      
+      /* ===== Alex Chat (sem partículas) ===== */
+      #alex-launcher {
+        position: fixed;
+        bottom: 60px;
+        right: 22px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(48, 78, 82, 0.85), rgba(184, 107, 60, 0.9));
+        color: #ffffff;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        z-index: 1200;
+      }
+      
+      #alex-launcher:hover {
+        transform: scale(1.06);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      }
+      
+      #alex-chat {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        width: min(92vw, 380px);
+        max-height: 70vh;
+        background: linear-gradient(180deg, rgba(13, 20, 22, 0.96), rgba(9, 16, 18, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        display: none;
+        overflow: hidden;
+        z-index: 1200;
+        backdrop-filter: blur(8px);
+      }
+      
+      .alex-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px 8px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .alex-header-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        background: linear-gradient(90deg, var(--petrol), var(--terracotta), var(--silver));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .alex-close {
+        background: transparent;
+        border: none;
+        color: #d2d2d2;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      
+      .alex-body {
+        padding: 12px;
+        overflow: auto;
+        max-height: 52vh;
+      }
+      
+      .alex-msg {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      
+      .alex-bubble {
+        padding: 10px 12px;
+        border-radius: 12px;
+        max-width: 85%;
+        line-height: 1.45;
+        font-size: 0.98rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-alex {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-user {
+        background: rgba(48, 78, 82, 0.18);
+      }
+      
+      .alex-input {
+        display: flex;
+        gap: 8px;
+        padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.2);
+      }
+      
+      .alex-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border-radius: 999px;
+        padding: 10px 14px;
+        outline: none;
+      }
+      
+      .alex-input button {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 16px;
+        color: #111111;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--silver), var(--terracotta), var(--petrol));
+      }
+      
+      .signature-footer {
+        position: fixed;
+        right: 22px;
+        bottom: 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.6px;
+        z-index: 900;
+        font-weight: 600;
+        background: linear-gradient(110deg, #2d616bff 0%, #c96639ff 58%, #e6a479ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="/">NÍVEA RIBEIRO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" id="nav-home" href="/Home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id="nav-projects" href="/projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-contact" href="/Contact">Contacts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-about" href="/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- FLAGS -->
+    <div id="lang-toggle">
+      <img src="https://flagcdn.com/w40/br.png" id="flag-br" alt="Português" />
+      <img src="https://flagcdn.com/w40/us.png" id="flag-us" alt="English" />
+    </div>
+
+    <!-- HEADER -->
+    <div class="container project-header">
+      <h1 data-text="SADB">SADB</h1>
+      <p class="project-subtitle">BANKING ATTACK & DEFENSE SIMULATOR</p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container">
+      <div class="section">
+        <h2 class="section-title">Genesis of SADB</h2>
+        <p>SADB was born from a simple, dangerous truth...</p>
+        <p>The idea emerged during experiments...</p>
+        <p>SADB was designed as a safe battlefield...</p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Architecture</h2>
+        <ul>
+          <li>💳 Simulated banking core</li>
+          <li>🛡️ Attack & defense engine</li>
+          <li>📑 Forensic audit layer</li>
+          <li>🗄️ PostgreSQL persistence</li>
+          <li>🔗 Integration with OneAPIIRS</li>
+          <li>🐋 Docker deployment</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Simulation Phases</h2>
+        <ol>
+          <li>Environment Setup</li>
+          <li>Threat Injection</li>
+          <li>Detection & Telemetry</li>
+          <li>Forensic Reconstruction</li>
+          <li>Defense Modeling</li>
+          <li>Reporting & Learning</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Impact</h2>
+        <ul>
+          <li>🏦 Training red/blue teams</li>
+          <li>🔍 Fraud hypothesis testing</li>
+          <li>📊 Incident propagation visibility</li>
+          <li>🧪 Cyber-resilience experiments</li>
+          <li>🔗 Correlation with OneAPIIRS</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Demo Video</h2>
+        <video controls width="100%" style="border-radius:12px; max-width:800px;">
+          <source src="/videos/sadb-demo.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- SOCIAL LINKS -->
+    <div class="social-links">
+      <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank" aria-label="Instagram">📸</a>
+      <a href="https://wa.me/5579998116801" target="_blank" aria-label="WhatsApp">💬</a>
+      <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank" aria-label="LinkedIn">in</a>
+    </div>
+
+    <footer class="signature-footer">Powered by NIVEA RIBEIRO — Precision • Elegance • Vision</footer>
+
+    <!-- ALEX -->
+    <button id="alex-launcher" title="Chat with Alex">💬</button>
+    <section id="alex-chat">
+      <div class="alex-header">
+        <div class="alex-header-title">Alex • Assistant</div>
+        <button class="alex-close">✕</button>
+      </div>
+      <div class="alex-body" id="alex-body"></div>
+      <div class="alex-input">
+        <input id="alex-input" type="text" placeholder="Type your message..." />
+        <button id="alex-send">Send</button>
+      </div>
+    </section>
+  </body>
+</html>

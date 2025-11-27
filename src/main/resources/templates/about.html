@@ -1,195 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About — Nívea Ribeiro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
 
-  <style>
-    :root {
-      --blue-deep:#062D3E;
-      --petrol:#25535B;
-      --terracotta:#B15330;
-      --rose:#C9AFA5;
-      --black:#000000;
-      --white:#FFFFFF;
-    }
-    body {
-      font-family: 'Exo 2', sans-serif;
-      background: linear-gradient(145deg, var(--black), var(--blue-deep), #111111);
-      color: var(--white);
-      min-height: 100vh;
-      padding-top: 70px;
-      overflow-x: hidden;
-    }
-    .navbar {
-      background: linear-gradient(145deg, #000000, #062D3E, #111111) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .about-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--petrol);
-      border-radius: 14px;
-      padding: 50px;
-      max-width: 1000px;
-      margin: 80px auto;
-      text-align: center;
-      box-shadow: 0 0 30px rgba(37,83,91,0.25);
-    }
-    h1 {
-      font-size: 2.8rem;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-      background: linear-gradient(90deg, var(--petrol), var(--terracotta));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    p {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      color: var(--rose);
-      margin-bottom: 15px;
-    }
-    strong { color: var(--white); }
+    <!-- Mobile Optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#0d1416" />
+    <title>About — Nívea Ribeiro</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
-    #replay-alex {
-      position: fixed;
-      bottom: 20px; right: 20px;
-      background: #1f1f1f;
-      border: 2px solid var(--petrol);
-      border-radius: 50%;
-      color: var(--rose);
-      font-size: 1.3rem;
-      width: 50px; height: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    #replay-alex:hover { background: var(--petrol); color: #fff; transform: scale(1.1); }
+    <!-- Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    #alex-container {
-      position: fixed;
-      width: 220px;
-      height: 220px;
-      z-index: 100;
-      pointer-events: none;
-      transition: all 2s ease-in-out;
-      bottom: 20px;
-      right: 20px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold" th:href="@{/}">Nívea Ribeiro</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/projects}">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>
-          <li class="nav-item"><a class="nav-link active" th:href="@{/about}">About</a></li>
-        </ul>
+    <style>
+      :root {
+        --petrol: #304e52;
+        --terracotta: #b86b3c;
+        --silver: #bfc4c6;
+        --graphite: #1a1d1e;
+        --ink: #0d1416;
+        --soft: #e9eef0;
+        --glow: #e9c8a3;
+        --smoke: #93a2a7;
+      }
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        color: var(--soft);
+        background: radial-gradient(1200px 640px at 85% -10%, rgba(48, 78, 82, 0.22), transparent 60%), radial-gradient(900px 520px at -10% 100%, rgba(184, 107, 60, 0.18), transparent 60%), linear-gradient(145deg, #0a0f11 0%, #0e1618 32%, #0f1a1e 68%, #0b1113 100%);
+        overflow-x: hidden;
+      }
+      
+      /* ===== Navbar ===== */
+      .navbar {
+        background: rgba(18, 25, 28, 0.7);
+        backdrop-filter: blur(14px);
+        height: 55px;
+        font-family: 'Poppins', sans-serif;
+        align-items: flex-end;
+        padding-bottom: 2px;
+      }
+      
+      .navbar-brand {
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        font-size: 1.1rem;
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, #113136ff 0%, #a3532cff 60%, #c58861ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+      }
+      
+      .nav-link {
+        color: #d0d7da !important;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        transition: opacity 0.25s, transform 0.25s;
+        padding: 0 12px;
+      }
+      
+      .nav-link:hover {
+        color: #113136ff !important;
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+      
+      /* ===== Flags ===== */
+      #lang-toggle {
+        position: fixed;
+        top: 78px;
+        right: 20px;
+        display: flex;
+        gap: 8px;
+        z-index: 1200;
+      }
+      
+      #lang-toggle img {
+        width: 40px;
+        height: 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        filter: grayscale(0.25) brightness(0.97);
+        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+      }
+      
+      #lang-toggle img:hover {
+        transform: scale(1.06);
+        filter: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      }
+      
+      .active-lang {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      }
+      
+      /* ===== Header ===== */
+      header {
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 80px;
+      }
+      
+      /* Título com efeito metálico sutil (sem “fumaça”) */
+      header h1 {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: clamp(2.6rem, 5.4vw, 3.2rem);
+        letter-spacing: 1.15px;
+        line-height: 1.1;
+        display: inline-block;
+      
+        /* gradiente metálico */
+        background: linear-gradient(110deg, #2d616bff 0%, #c96639ff 58%, #e6a479ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+      
+        /* textura “aço escovado” suave */
+        position: relative;
+        filter: brightness(1.35) contrast(1.35) saturate(1.05);
+        -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.15);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+      
+      header h1::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 3px);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        mix-blend-mode: overlay;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      
+      header p {
+        font-size: 1.8rem;
+        font-family: 'Poppins', sans-serif;
+        color: var(--smoke);
+        letter-spacing: 0.5px;
+        margin-top: 20px;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.06);
+      }
+      
+      /* ===== Social Links (translúcidos) ===== */
+      .social-links {
+        position: fixed;
+        left: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1100;
+      }
+      
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06); /* leve transparência */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.45); /* ícone claro, neutro */
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+      
+      .social-links a:hover {
+        background: rgba(255, 255, 255, 0.12); /* realce sutil no hover */
+        color: #ffffff; /* ícone branco ao passar o mouse */
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      }
+      
+      /* ===== Main Content ===== */
+      .about-content {
+        max-width: 900px;
+        margin: 80px auto 110px;
+        padding: 0 20px;
+        text-align: justify;
+        line-height: 1.8;
+        font-size: 1.08rem;
+        color: var(--soft);
+        opacity: 0.92;
+      }
+      
+      .divider {
+        height: 1px;
+        width: 100%;
+        margin: 30px 0;
+        background: linear-gradient(90deg, transparent, rgba(185, 107, 60, 0.55), transparent);
+        opacity: 0.6;
+      }
+      
+      /* ===== Chat Icon (somente ícone) ===== */
+      #alex-launcher {
+        position: fixed;
+        bottom: 70px;
+        right: 22px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(48, 78, 82, 0.85), rgba(184, 107, 60, 0.9));
+        color: #ffffff;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+        z-index: 1200;
+      }
+      
+      #alex-launcher:hover {
+        transform: scale(1.06);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      }
+      
+      #alex-chat {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        width: min(92vw, 380px);
+        max-height: 70vh;
+        background: linear-gradient(180deg, rgba(13, 20, 22, 0.96), rgba(9, 16, 18, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        display: none;
+        overflow: hidden;
+        z-index: 1200;
+        backdrop-filter: blur(8px);
+      }
+      
+      .alex-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px 8px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .alex-header-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        background: linear-gradient(90deg, var(--petrol), var(--terracotta), var(--silver));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .alex-close {
+        background: transparent;
+        border: none;
+        color: #d2d2d2;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      
+      .alex-body {
+        padding: 12px;
+        overflow: auto;
+        max-height: 52vh;
+      }
+      
+      .alex-msg {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      
+      .alex-bubble {
+        padding: 10px 12px;
+        border-radius: 12px;
+        max-width: 85%;
+        line-height: 1.45;
+        font-size: 0.98rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-alex {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      .from-user {
+        background: rgba(48, 78, 82, 0.18);
+      }
+      
+      .alex-input {
+        display: flex;
+        gap: 8px;
+        padding: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.2);
+      }
+      
+      .alex-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border-radius: 999px;
+        padding: 10px 14px;
+        outline: none;
+      }
+      
+      .alex-input button {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 16px;
+        color: #111111;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--silver), var(--terracotta), var(--petrol));
+      }
+      /* ===== Footer (texto exato solicitado) ===== */
+      .signature-footer {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        text-align: right;
+        z-index: 10;
+        opacity: 0.85;
+      }
+      
+      .signature-line {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        color: #c6c6c6;
+        background: linear-gradient(90deg, #007177, #b85b2a, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200%;
+        animation: gradientShift 8s ease infinite;
+      }
+      
+      .signature-name {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+      
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        #lang-toggle {
+          top: 74px;
+          right: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="/">NÍVEA RIBEIRO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" id="nav-home" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-projects" href="/projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-contact" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id="nav-about" href="/about">About</a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
+
+    <!-- Flags -->
+    <div id="lang-toggle">
+      <img src="https://flagcdn.com/w40/us.png" alt="English" id="flag-us" loading="lazy" />
+      <img src="https://flagcdn.com/w40/br.png" alt="Português" id="flag-br" loading="lazy" />
     </div>
-  </nav>
 
-  <div id="alex-container"></div>
+    <!-- Header -->
+    <header>
+      <h1 id="about-title">ENGINEERING BEYOND CODE</h1>
+      <p id="about-subtitle">From Legacy to Extraordinary.</p>
+    </header>
 
-  <!-- About content -->
-  <div class="about-card">
-    <h1 id="about-title">About Me</h1>
-    <div id="about-text"></div>
-  </div>
+    <!-- About Text -->
+    <section class="about-content">
+      <p id="p1">NIVEA RIBEIRO is a software engineering and systems design company specialized in the modernization of complex governmental systems and mission-critical infrastructures.</p>
+      <p id="p2">Operating at the intersection of technology, system architecture, and information security, the brand delivers solutions that merge technical precision, functional aesthetics, and strategic purpose.</p>
+      <p id="p3">Our flagship projects — SADB (Secure Adaptive Defense Banking) and ONEAPIIRS (One API for Integrated Revenue Systems) — embody our vision: building technological bridges between legacy and future, connecting fiscal, financial, and administrative platforms into unified, intelligent, and auditable ecosystems.</p>
 
-  <button id="replay-alex" title="Replay Alex narration">🔊</button>
+      <div class="divider"></div>
 
-  <!-- Partículas -->
-  <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.155/build/three.module.js";
-    let scene, camera, renderer;
-    window.particles = null;
-    function initParticles() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, 220 / 220, 0.1, 1000);
-      camera.position.z = 6;
-      renderer = new THREE.WebGLRenderer({ alpha: true });
-      renderer.setSize(220, 220);
-      document.getElementById("alex-container").appendChild(renderer.domElement);
-      const geometry = new THREE.BufferGeometry();
-      const particlesCount = 300;
-      const positions = [];
-      const colors = [];
-      const palette = [new THREE.Color("#062D3E"), new THREE.Color("#25535B"), new THREE.Color("#B15330"), new THREE.Color("#C9AFA5")];
-      for (let i = 0; i < particlesCount; i++) {
-        positions.push((Math.random() - 0.5) * 10);
-        positions.push((Math.random() - 0.5) * 10);
-        positions.push((Math.random() - 0.5) * 10);
-        const color = palette[Math.floor(Math.random() * palette.length)];
-        colors.push(color.r, color.g, color.b);
+      <p id="p4">Every line of code carries our signature — precision engineering, minimalist design, and a relentless pursuit of excellence. We don’t just develop software — we reconstruct digital infrastructures, transforming them into secure, scalable, and human-centered systems.</p>
+
+      <div class="divider"></div>
+
+      <p id="p5">NIVEA RIBEIRO stands as a symbol of purposeful innovation. We design what governs, protects, and connects the future.</p>
+      <p id="p6">⚙️ From legacy to extraordinary. Precision • Elegance • Vision.</p>
+    </section>
+
+    <!-- Chat Icon -->
+    <button id="alex-launcher" title="Chat with Alex">💬</button>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      <a href="https://wa.me/+5579981081127" target="_blank" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+      <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="signature-footer">
+      <p class="signature-line">
+        Powered by <span class="signature-name">NIVEA RIBEIRO</span> — Precision • Elegance • Vision
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // ===== Bilingue (PT/EN) =====
+      const Copy = {
+        'en-US': {
+          nav: { home: 'Home', projects: 'Projects', contact: 'Contact', about: 'About' },
+          title: 'ENGINEERING BEYOND CODE',
+          subtitle: 'From Legacy to Extraordinary',
+          p1: 'NIVEA RIBEIRO is a software engineering and systems design company specialized in the modernization of complex governmental systems and mission-critical infrastructures.',
+          p2: 'Operating at the intersection of technology, system architecture, and information security, the brand delivers solutions that merge technical precision, functional aesthetics, and strategic purpose.',
+          p3: 'Our flagship projects — SADB (Secure Adaptive Defense Banking) and ONEAPIIRS (One API for Integrated Revenue Systems) — embody our vision: building technological bridges between legacy and future, connecting fiscal, financial, and administrative platforms into unified, intelligent, and auditable ecosystems.',
+          p4: 'Every line of code carries our signature — precision engineering, minimalist design, and a relentless pursuit of excellence. We don’t just develop software — we reconstruct digital infrastructures, transforming them into secure, scalable, and human-centered systems.',
+          p5: 'NIVEA RIBEIRO stands as a symbol of purposeful innovation. We design what governs, protects, and connects the future.',
+          p6: 'From legacy to extraordinary. Precision • Elegance • Vision.'
+        },
+        'pt-BR': {
+          nav: { home: 'Início', projects: 'Projetos', contact: 'Contato', about: 'Sobre' },
+          title: 'ENGENHARIA ALÉM DO CÓDIGO',
+          subtitle: 'Do Legado ao Extraordinário',
+          p1: 'NIVEA RIBEIRO é uma empresa de engenharia de software e design sistêmico especializada na modernização de sistemas governamentais complexos e infraestruturas críticas.',
+          p2: 'Atuando na interseção entre tecnologia, arquitetura de sistemas e segurança da informação, a marca entrega soluções que unem precisão técnica, estética funcional e propósito estratégico.',
+          p3: 'Seus projetos emblemáticos — SADB (Secure Adaptive Defense Banking) e ONEAPIIRS (One API for Integrated Revenue Systems) — representam sua visão: construir pontes tecnológicas entre o legado e o futuro, conectando plataformas fiscais, financeiras e administrativas em ecossistemas unificados, inteligentes e auditáveis.',
+          p4: 'Cada linha de código carrega sua assinatura — engenharia de precisão, design minimalista e uma busca incansável pela excelência. Não desenvolvemos apenas software — reconstruímos infraestruturas digitais, tornando-as seguras, escaláveis e centradas no humano.',
+          p5: 'NIVEA RIBEIRO é símbolo de inovação com propósito. Projetamos o que governa, protege e conecta o futuro.',
+          p6: 'Do Legado ao Extraordinário. Precisão • Elegância • Visão.'
+        }
       }
-      geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-      geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
-      const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.75 });
-      window.particles = new THREE.Points(geometry, material);
-      scene.add(window.particles);
-      animate();
-    }
-    function animate() {
-      requestAnimationFrame(animate);
-      if (window.particles) {
-        window.particles.rotation.y += 0.0012;
-        window.particles.rotation.x += 0.0006;
+      
+      let currentLang = 'en-US'
+      
+      function applyLang(lang) {
+        const c = Copy[lang]
+        currentLang = lang
+      
+        // Header
+        document.getElementById('about-title').textContent = c.title
+        document.getElementById('about-subtitle').textContent = c.subtitle
+      
+        // Texto
+        document.getElementById('p1').textContent = c.p1
+        document.getElementById('p2').textContent = c.p2
+        document.getElementById('p3').textContent = c.p3
+        document.getElementById('p4').textContent = c.p4
+        document.getElementById('p5').textContent = c.p5
+        document.getElementById('p6').textContent = c.p6
+      
+        // Navbar
+        document.getElementById('nav-home').textContent = c.nav.home
+        document.getElementById('nav-projects').textContent = c.nav.projects
+        document.getElementById('nav-contact').textContent = c.nav.contact
+        document.getElementById('nav-about').textContent = c.nav.about
+      
+        // Flag active state
+        document.getElementById('flag-us').classList.toggle('active-lang', lang === 'en-US')
+        document.getElementById('flag-br').classList.toggle('active-lang', lang === 'pt-BR')
       }
-      renderer.render(scene, camera);
-    }
-    initParticles();
-  </script>
-
-  <!-- Alex Voice Script (externo) -->
-  <script src="/js/alex.js"></script>
-  <script>
-    const translations = {
-      "en-US": `
-        <p>I am <strong>Nívea Ribeiro</strong> — a software engineer who transforms complexity into clarity and ideas into scalable, elegant solutions. My journey began in <em>Architecture & Urbanism</em>, where I learned to design with structure, vision, and precision. Today, I bring that same mindset into the digital world.</p>
-        <p>Projects like <strong>OneAPIIRS</strong> (modernizing COBOL fiscal data, bridging mainframes to modern APIs) and <strong>SADB</strong> (a simulated banking system to research and defend against real hacker attacks) reflect my commitment to impact and innovation.</p>
-        <p>I also built AI-based projects such as mental health assistants, alternate reality simulators, and computer vision models for agriculture — and even this website, crafted with love, one of my favorites, for uniting technology and personal expression.</p>
-        <p>I am part of the <strong>Google Developers Program</strong> (since 2023), a proud <strong>Women Techmakers</strong> member, representing Brazilian women in tech, and a <strong>Google Maps Platform Innovator</strong>. As a <strong>Google Cloud Innovator</strong>, I design scalable solutions, while following <strong>Firebase Data Connect Preview</strong> and <strong>Google Developer Experts</strong>.</p>
-        <p>I joined <strong>Google I/O 2024</strong> and <strong>2025</strong>, connecting directly to Google’s ecosystem and using <strong>Android Studio</strong> daily.</p>
-        <p>Outside of tech, I’m the proud mom of <strong>Bello José</strong>, <strong>Mell Emilia</strong>, and <strong>Joe</strong> 🐾. I am also a defender of animal rights and nature, believing that innovation matters most when aligned with life and the planet’s future.</p>
-      `,
-      "pt-BR": `
-        <p>Eu sou <strong>Nívea Ribeiro</strong> — uma engenheira de software que transforma complexidade em clareza e ideias em soluções escaláveis e elegantes. Minha trajetória começou em <em>Arquitetura & Urbanismo</em>, onde aprendi a projetar com estrutura, visão e precisão. Hoje, trago essa mesma mentalidade para o mundo digital.</p>
-        <p>Projetos como o <strong>OneAPIIRS</strong> (modernização de dados fiscais em COBOL, conectando mainframes a APIs modernas) e o <strong>SADB</strong> (sistema bancário simulado para pesquisa e defesa contra ataques hackers reais) refletem meu compromisso com impacto e inovação.</p>
-        <p>Também desenvolvi projetos baseados em IA, como assistentes de saúde mental, simuladores de realidades alternativas e modelos de visão computacional aplicados à agricultura — e até este próprio site, criado com muito carinho, e que considero um dos meus preferidos, por unir tecnologia e expressão pessoal.</p>
-        <p>Faço parte do <strong>Google Developers Program</strong> (desde 2023), sou membro da comunidade <strong>Women Techmakers (Google)</strong>, representando as mulheres brasileiras na tecnologia, e também dos <strong>Google Maps Platform Innovators</strong>. Como <strong>Google Cloud Innovator</strong>, desenvolvo soluções escaláveis, acompanhando tendências do <strong>Firebase Data Connect Preview</strong> e dos <strong>Google Developer Experts</strong>.</p>
-        <p>Participei do <strong>Google I/O 2024</strong> e <strong>2025</strong>, conectando-me diretamente ao ecossistema do Google e usando o <strong>Android Studio</strong> diariamente.</p>
-        <p>Fora da tecnologia, sou mãe orgulhosa de <strong>Bello José</strong>, <strong>Mell Emilia</strong> e <strong>Joe</strong> 🐾. Também sou defensora da causa animal e da natureza, acreditando que a verdadeira inovação só faz sentido quando alinhada ao cuidado com a vida e o futuro do planeta.</p>
-      `,
-      "es-ES": `
-        <p>Soy <strong>Nívea Ribeiro</strong> — una ingeniera de software que transforma la complejidad en claridad y las ideas en soluciones escalables y elegantes. Mi trayectoria comenzó en <em>Arquitectura & Urbanismo</em>, donde aprendí a diseñar con estructura, visión y precisión. Hoy aplico esa mentalidad al mundo digital.</p>
-        <p>Proyectos como <strong>OneAPIIRS</strong> (modernización de datos fiscales en COBOL, conectando mainframes a APIs modernas) y <strong>SADB</strong> (sistema bancario simulado para investigación y defensa contra ataques hackers reales) reflejan mi compromiso con impacto e innovación.</p>
-        <p>También desarrollé proyectos con IA, como asistentes de salud mental, simuladores de realidades alternativas y modelos de visión por computadora aplicados a la agricultura — e incluso este mismo sitio web, creado con mucho cariño, que considero uno de mis favoritos, por unir tecnología y expresión personal.</p>
-        <p>Formo parte del <strong>Google Developers Program</strong> (desde 2023), soy miembro de <strong>Women Techmakers (Google)</strong>, representando a las mujeres brasileñas en tecnología, y de <strong>Google Maps Platform Innovators</strong>. Como <strong>Google Cloud Innovator</strong>, desarrollo soluciones escalables y sigo de cerca las tendencias de <strong>Firebase Data Connect Preview</strong> y <strong>Google Developer Experts</strong>.</p>
-        <p>Participé en <strong>Google I/O 2024</strong> y <strong>2025</strong>, conectándome directamente con el ecosistema de Google y usando <strong>Android Studio</strong> a diario.</p>
-        <p>Fuera de la tecnología, soy madre orgullosa de <strong>Bello José</strong>, <strong>Mell Emilia</strong> y <strong>Joe</strong> 🐾. También soy defensora de la causa animal y la naturaleza, creyendo que la verdadera innovación solo tiene sentido cuando está alineada con el cuidado de la vida y el futuro del planeta.</p>
-      `
-    };
-
-    window.addEventListener("load", () => {
-      const lang = navigator.language || "en-US";
-      const content = translations[lang] || translations["en-US"];
-      document.getElementById("about-text").innerHTML = content;
-    });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+      
+      // Eventos das bandeiras
+      document.getElementById('flag-us').addEventListener('click', () => applyLang('en-US'))
+      document.getElementById('flag-br').addEventListener('click', () => applyLang('pt-BR'))
+      
+      // Idioma padrão
+      window.addEventListener('load', () => applyLang('en-US'))
+      
+      // Ícone do chat (placeholder simples)
+      document.getElementById('alex-launcher').addEventListener('click', () => {
+        alert(currentLang === 'pt-BR' ? 'Alex: em breve abriremos um chat minimalista aqui. 😉' : 'Alex: a minimal chat will show up here soon. 😉')
+      })
+    </script>
+  </body>
 </html>
