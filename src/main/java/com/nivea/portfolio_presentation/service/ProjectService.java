@@ -37,7 +37,7 @@ public class ProjectService {
             "Python, FastAPI, ML, TensorFlow, Twilio API",
             "https://github.com/NCRibeiro/LiFE",
             "LiFE is an AI-driven mental health assistant providing 24/7 support via chat and voice. It integrates NLP, ML models, and crisis detection workflows to reduce suicide risk and increase accessibility to mental health care.",
-            "/projects/lifeapp"
+            "/projects/life"
         ),
         new Project(
             4,
@@ -46,7 +46,7 @@ public class ProjectService {
             "Python, FastAPI, Gemini API, AI Narrative Engine",
             "https://github.com/NCRibeiro/Alternate_Reality_Simulator",
             "The Alternate Reality Simulator (ARS) allows users to experience alternate versions of their lives or fictional worlds. By combining biometric and psychological data with AI-driven narratives, it generates immersive alternate realities for creativity, therapy and entertainment.",
-            "/projects/alternatereality"
+            "/projects/alternate-reality-simulator"
         ),
         new Project(
             5,

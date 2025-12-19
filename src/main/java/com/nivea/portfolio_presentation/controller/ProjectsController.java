@@ -24,7 +24,7 @@ public class ProjectsController {
     }
 
     /**
-     * Página principal de projetos — carrega o template project.html.
+     * Página principal de projetos - carrega o template project.html.
      */
     @GetMapping("/projects")
     public String listProjects(Model model) {
@@ -56,7 +56,7 @@ public class ProjectsController {
     @GetMapping("/projects/{slug}")
     public String showProjectDetails(@PathVariable String slug, Model model) {
         if (slug == null || slug.isBlank()) {
-            throw new IllegalArgumentException("❌ Invalid project slug: " + slug);
+            throw new IllegalArgumentException("Invalid project slug: " + slug);
         }
 
         String normalized = slug.trim().toLowerCase();
@@ -69,7 +69,7 @@ public class ProjectsController {
                 return "project/sadb";
             }
             case "lifeapp", "life-app", "life" -> {
-                return "project/lifeapp";
+                return "project/life";
             }
             case "portfolio", "portfolio-presentation" -> {
                 return "project/portfolio";
@@ -80,14 +80,17 @@ public class ProjectsController {
             case "yolov8-precision-agriculture", "agriculture" -> {
                 return "project/agriculture";
             }
-            case "alternate-reality-simulator", "ars", "alternatereality" -> {
-                return "project/alternatereality";
+            case "alternate-reality-simulator", "ars", "alternatereality", "alternate-reality" -> {
+                return "project/alternateReality";
             }
             case "stockmanager", "stock-manager" -> {
                 return "project/stockmanager";
             }
             case "welltrack" -> {
                 return "project/welltrack";
+            }
+            case "face-detection", "facedetection", "face-detection-ai" -> {
+                return "project/faceDetection";
             }
             default -> {
                 final String searchSlug = slug;
@@ -96,7 +99,7 @@ public class ProjectsController {
                                 .replace(" ", "")
                                 .equalsIgnoreCase(searchSlug.replace("-", "")))
                         .findFirst()
-                        .orElseThrow(() -> new IllegalArgumentException("❌ Project not found: " + searchSlug));
+                        .orElseThrow(() -> new IllegalArgumentException("Project not found: " + searchSlug));
 
                 model.addAttribute("project", project);
                 return "project-details"; // fallback genérico

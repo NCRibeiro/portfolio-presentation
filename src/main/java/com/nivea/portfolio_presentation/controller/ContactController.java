@@ -33,9 +33,9 @@ public class ContactController {
         String text = String.format("Email: %s%n%nMessage:%n%s", email, message);
         try {
             emailService.sendEmail(email, subject, text);
-            redirectAttrs.addFlashAttribute("success", "✅ Message sent successfully!");
+            redirectAttrs.addFlashAttribute("success", "Message sent successfully!");
         } catch (Exception e) {
-            redirectAttrs.addFlashAttribute("error", "❌ Failed to send message. Please try again.");
+            redirectAttrs.addFlashAttribute("error", "Failed to send message. Please try again.");
         }
         return "redirect:/contact";
     }
