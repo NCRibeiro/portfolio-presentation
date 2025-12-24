@@ -55,28 +55,18 @@
         padding: 0;
         height: 100%;
         font-family: 'Poppins', sans-serif;
-        color: var(--silver-100);
+        color: #e3e8ea;
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
-        /* Fundo + imagem, mais leve */
-        background: linear-gradient(180deg, rgba(13, 20, 22, 0.55) 0%, rgba(13, 20, 22, 0.6) 60%, rgba(13, 20, 22, 0.7) 100%), url('/bg/logo1.png') center center / cover no-repeat;
-        /* Em vez de multiply (que escurece muito), use soft-light para “misturar” com a imagem */
-        background-blend-mode: soft-light;
-      }
-      
-      body::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(13, 20, 22, 0.75);
-        z-index: 0;
+        /* Fundo sólido, alto contraste */
+        background: #0b0f10;
       }
       
       /* ===== Navbar ===== */
       .navbar {
         background: rgba(27, 34, 37, 0.7);
         backdrop-filter: blur(14px);
-        height: 55px;
+        height: 48px;
         display: flex;
         font-family: 'Poppins', sans-serif;
         font-size: 1.1rem;
@@ -87,14 +77,14 @@
       .navbar-brand {
         font-weight: 600;
         font-family: 'Poppins', sans-serif;
-        letter-spacing: 1.2px;
+        letter-spacing: 1.6px;
         font-size: 1.1rem;
         text-transform: uppercase;
-        background: linear-gradient(120deg, #1b4349ff 0%, #a3532cff 60%, #c58861ff 100%);
-      
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+        color: #f4f6f8; /* branco gelo */
+        text-shadow: none;
+        background: none;
+        -webkit-text-fill-color: #f4f6f8;
+        -webkit-background-clip: initial;
       }
       
       @keyframes brandFlow {
@@ -114,7 +104,7 @@
         font-weight: 500;
         font-size: 0.95rem;
         text-transform: uppercase;
-        letter-spacing: 0.8px;
+        letter-spacing: 1.4px;
         transition: opacity 0.25s, transform 0.25s;
         padding: 0 12px;
       }
@@ -128,27 +118,35 @@
       /* ===== Flags ===== */
       #lang-toggle {
         position: fixed;
-        top: 78px;
+        top: 56px;
         right: 20px;
         display: flex;
-        gap: 8px;
+        gap: 10px;
         z-index: 1200;
       }
-      #lang-toggle img {
-        width: 40px;
-        height: 28px;
-        border-radius: 8px;
+      #lang-toggle .lang-pill {
+        min-width: 44px;
+        padding: 6px 10px;
+        border-radius: 10px;
         cursor: pointer;
-        filter: grayscale(0.25) brightness(0.97);
-        transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #d9e3e6;
+        font-size: 0.78rem;
+        letter-spacing: 1.1px;
+        text-transform: uppercase;
+        text-align: center;
+        transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
       }
-      #lang-toggle img:hover {
-        transform: scale(1.06);
-        filter: none;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+      #lang-toggle .lang-pill:hover {
+        opacity: 1;
+        border-color: rgba(57, 216, 255, 0.5);
+        transform: translateY(-1px);
       }
-      .active-lang {
-        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+      #lang-toggle .active-lang {
+        border-color: rgba(57, 216, 255, 0.8);
+        color: #f4f6f8;
+        box-shadow: 0 0 12px rgba(57, 216, 255, 0.2);
       }
       
       /* ===== Título com aço escovado ===== */
@@ -162,40 +160,20 @@
         line-height: 1.05;
         margin: 0;
         font-size: clamp(3.2rem, 6.6vw, 5rem);
-      
-        background: linear-gradient(100deg, #113136ff 0%, #a3532cff 60%, #c58861ff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 200% 200%;
-        filter: brightness(1.4) contrast(1.4) saturate(1.1);
-        -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.15);
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        background: none;
+        color: #f4f6f8; /* branco gelo */
+        -webkit-background-clip: initial;
+        -webkit-text-fill-color: #f4f6f8;
+        filter: none;
+        -webkit-text-stroke: 0;
+        text-shadow: none;
         margin-top: 40px;
       }
       
-      /* Textura de aço escovado horizontal */
-      .brand-name::before {
-        content: attr(data-text);
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0px, rgba(255, 255, 255, 0.025) 1px, transparent 3px);
-        mix-blend-mode: overlay;
-        pointer-events: none;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        opacity: 0.5;
-      }
-      
-      /* Reflexo metálico diagonal (brilho de luz real) */
+      .brand-name::before,
       .brand-name::after {
-        content: attr(data-text);
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 40%, transparent 60%, transparent 100%);
-        mix-blend-mode: screen;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        opacity: 0.65;
+        display: none;
+        content: none;
       }
       
       /* Subtítulo */
@@ -277,13 +255,14 @@
       /* Conteúdo principal */
       #main-content {
         position: relative;
-        height: 88vh;
+        min-height: calc(100vh - 140px);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        gap: 12px;
+        gap: 14px;
+        padding: 120px 16px 80px;
         opacity: 0;
         transform: translateY(24px);
         transition: opacity 0.9s ease, transform 0.9s ease;
@@ -398,6 +377,121 @@
         text-transform: uppercase;
         letter-spacing: 1.5px;
       }
+
+      /* Systems overlay */
+      .systems-overlay {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 35%, rgba(57, 216, 255, 0.08), rgba(5, 9, 11, 0.96));
+        backdrop-filter: blur(6px);
+        display: grid;
+        place-items: center;
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+      .systems-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .systems-console {
+        padding: 28px 32px;
+        border: 1px solid rgba(57, 216, 255, 0.35);
+        background: rgba(7, 11, 13, 0.9);
+        color: #dce4e7;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.6px;
+        box-shadow: 0 0 26px rgba(57, 216, 255, 0.15);
+        max-width: 640px;
+        width: 90%;
+        text-align: left;
+      }
+      .console-title {
+        font-weight: 700;
+        margin: 0 0 10px;
+        color: #f4f6f8;
+      }
+      .console-log {
+        font-family: 'Exo 2', monospace;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        color: rgba(232, 237, 240, 0.9);
+        margin: 0 0 12px;
+      }
+      .console-progress {
+        position: relative;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        border-radius: 3px;
+      }
+      .console-progress::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        width: 30%;
+        background: linear-gradient(90deg, rgba(57, 216, 255, 0) 0%, rgba(57, 216, 255, 0.7) 50%, rgba(57, 216, 255, 0) 100%);
+        animation: sweep 1.8s ease-in-out infinite;
+      }
+      @keyframes sweep {
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(30%); }
+        100% { transform: translateX(120%); }
+      }
+
+      /* Partículas localizadas abaixo do CTA */
+      .particles-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        height: 160px;
+        margin: 28px auto 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      #particles {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* Telemetry strip */
+      .telemetry {
+        margin: 10px auto 0;
+        color: #7d878c;
+        letter-spacing: 1.1px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        text-align: center;
+        max-width: 960px;
+        display: grid;
+        gap: 4px;
+        opacity: 0.55;
+      }
+      .telemetry .row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .telemetry span {
+        color: #9aa3a7;
+      }
+
+      /* Overrides: gelo branco no título e navbar */
+      .navbar-brand,
+      .brand-name {
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: #f4f6f8 !important;
+        color: #f4f6f8 !important;
+        text-shadow: none !important;
+        filter: none !important;
+      }
       
       @keyframes gradientShift {
         0% {
@@ -405,7 +499,7 @@
         }
         50% {
           background-position: 100% 50%;
-        }
+        }+
         100% {
           background-position: 0% 50%;
         }
@@ -437,46 +531,40 @@
     </nav>
 
     <div id="lang-toggle">
-      <img src="https://flagcdn.com/w40/br.png" alt="Português" id="flag-br" loading="lazy" />
-      <img src="https://flagcdn.com/w40/us.png" alt="English" id="flag-us" loading="lazy" />
+      <span class="lang-pill active-lang" id="flag-us">EN</span>
+      <span class="lang-pill" id="flag-br">PT</span>
     </div>
 
     <div id="intro-sequence">
       <pre id="typewriter"></pre>
     </div>
 
+    <div class="telemetry" style="max-width: 100%; margin: 8px auto 0; padding: 0 20px; text-align: right;">
+      <div class="row" style="justify-content: flex-end;">SYS · ARCH · CLOUD · SECURITY · DATA · AI</div>
+    </div>
+
     <main id="main-content">
       <h1 class="brand-name" id="title-name" data-text="NÍVEA RIBEIRO">NÍVEA RIBEIRO</h1>
-      <p id="subtitle">Software Engineering - Systems Architecture</p>
-      <a href="/projects" id="start-btn" class="btn btn-custom shadow">Start Presentation</a>
+      <p id="subtitle">Engineering Software Systems for Complex Environments</p>
+      <button type="button" id="start-btn" class="btn btn-custom shadow">Enter Platform</button>
+
+      <div class="particles-wrap">
+        <canvas id="particles"></canvas>
+      </div>
+
     </main>
-
-    <div class="social-links">
-      <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank" aria-label="Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4Zm4.5 3.5A4.5 4.5 0 1 1 7.5 12a4.5 4.5 0 0 1 4.5-4.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm4.75-3.75a.75.75 0 1 1-.75.75.75.75 0 0 1 .75-.75Z" />
-        </svg>
-      </a>
-
-      <a href="https://wa.me/5579998116801" target="_blank" aria-label="WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20.52 3.48A11.91 11.91 0 0 0 12.07 0a12 12 0 0 0-10.6 17.94L0 24l6.2-1.63A12 12 0 0 0 12 24h.05A12 12 0 0 0 24 11.93a11.91 11.91 0 0 0-3.48-8.45ZM12.05 21.5a9.5 9.5 0 0 1-4.84-1.3l-.35-.2-3.68 1 1-3.59-.23-.37a9.5 9.5 0 1 1 8.1 4.46Zm5.37-7.15c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.95 1.17-.35.22-.65.07a7.73 7.73 0 0 1-2.27-1.4A8.57 8.57 0 0 1 8.8 10c-.17-.3 0-.45.12-.6s.3-.37.45-.55a2 2 0 0 0 .3-.52.54.54 0 0 0-.02-.52c-.07-.15-.65-1.57-.9-2.16s-.47-.5-.67-.5h-.57a1.1 1.1 0 0 0-.8.37A3.3 3.3 0 0 0 5 7.47 5.72 5.72 0 0 0 6.2 10a13 13 0 0 0 5.6 5.3c.78.33 1.38.52 1.85.67a4.44 4.44 0 0 0 2.1.13 3.4 3.4 0 0 0 2.23-1.57 2.76 2.76 0 0 0 .2-1.57c-.1-.15-.26-.22-.46-.3Z" />
-        </svg>
-      </a>
-
-      <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank" aria-label="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5Zm.02 7h4v13H5V10.5Zm7.5 0h3.8v1.9h.05a4.15 4.15 0 0 1 3.75-2.1c4 0 4.75 2.6 4.75 6v7.2h-4v-6.4c0-1.5 0-3.5-2.1-3.5-2.1 0-2.4 1.6-2.4 3.4v6.5h-4V10.5Z" />
-        </svg>
-      </a>
-    </div>
 
     <div id="alex-container"></div>
 
     <footer class="signature-footer">
       <p class="signature-line">
-        Powered by <span class="signature-name">Nívea Ribeiro</span> — Engineered with Precision • Designed for Impact
+        Powered by <span class="signature-name">Nivea Ribeiro</span> — Engineered with Precision • Designed for Impact
       </p>
+      <div style="margin-top:10px; display:flex; gap:12px; justify-content:flex-end; font-size:0.85rem; letter-spacing:1px; color:#cfd6d9;">
+        <a href="https://www.linkedin.com/in/carolineribeiro0/" target="_blank" aria-label="LinkedIn" style="color:inherit; text-decoration:none; padding:6px 10px; border:1px solid rgba(207,214,217,0.25); border-radius:8px;">LINKEDIN</a>
+        <a href="https://wa.me/5579998116801" target="_blank" aria-label="WhatsApp" style="color:inherit; text-decoration:none; padding:6px 10px; border:1px solid rgba(207,214,217,0.25); border-radius:8px;">WHATSAPP</a>
+        <a href="https://www.instagram.com/niveacaroline_ribeiro" target="_blank" aria-label="Instagram" style="color:inherit; text-decoration:none; padding:6px 10px; border:1px solid rgba(207,214,217,0.25); border-radius:8px;">INSTAGRAM</a>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -497,7 +585,7 @@
           'en-US': {
             typewriter: "Hello! I'm Alex — Welcome to Nívea Ribeiro Interactive Portfolio.",
             subtitle: 'Systems Architect - Full Stack',
-            button: 'Start Presentation',
+            button: 'Enter Platform',
             nav: { home: 'Home', projects: 'Projects', contact: 'Contact', about: 'About' }
           }
         }
@@ -577,5 +665,180 @@
         }
       })
     </script>
+
+    <div class="systems-overlay" id="systems-overlay">
+      <div class="systems-console">
+        <h3 class="console-title">Loading architecture...</h3>
+        <p class="console-log" id="console-log">Handshake with core services</p>
+        <div class="console-progress"></div>
+      </div>
+    </div>
+
+    <script>
+      // Partículas/dados localizados (abaixo do CTA)
+      const particlesCanvas = document.getElementById('particles')
+      if (particlesCanvas) {
+        const pctx = particlesCanvas.getContext('2d')
+        let pw, ph, pdpr
+        const particles = []
+        const PARTICLE_COUNT = 34
+        const LINK_DIST = 160
+        const BASE_SPEED = 0.08
+        const mouse = { x: 0, y: 0, active: false }
+
+        function resizeParticles() {
+          pdpr = window.devicePixelRatio || 1
+          pw = particlesCanvas.clientWidth
+          ph = particlesCanvas.clientHeight
+          particlesCanvas.width = pw * pdpr
+          particlesCanvas.height = ph * pdpr
+          particlesCanvas.style.width = pw + 'px'
+          particlesCanvas.style.height = ph + 'px'
+          pctx.setTransform(1, 0, 0, 1, 0, 0)
+          pctx.scale(pdpr, pdpr)
+        }
+
+        function initParticles() {
+          particles.length = 0
+          for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+              x: Math.random() * pw,
+              y: Math.random() * ph,
+              r: Math.random() * 1.2 + 0.8,
+              vx: (Math.random() - 0.5) * BASE_SPEED,
+              vy: (Math.random() - 0.5) * BASE_SPEED,
+              phase: Math.random() * Math.PI * 2,
+              freq: 0.0015 + Math.random() * 0.0015
+            })
+          }
+        }
+
+        function drawParticles() {
+          pctx.clearRect(0, 0, pw, ph)
+          const t = performance.now()
+
+          // conexões
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const a = particles[i]
+              const b = particles[j]
+              const dx = a.x - b.x
+              const dy = a.y - b.y
+              const dist = Math.hypot(dx, dy)
+              if (dist < LINK_DIST) {
+                const alpha = 1 - dist / LINK_DIST
+                pctx.strokeStyle = `rgba(57, 216, 255, ${alpha * 0.35})`
+                pctx.lineWidth = 0.6
+                pctx.beginPath()
+                pctx.moveTo(a.x, a.y)
+                pctx.lineTo(b.x, b.y)
+                pctx.stroke()
+              }
+            }
+          }
+
+          // partículas
+          particles.forEach((p) => {
+            // atração leve ao mouse/parallax
+            if (mouse.active) {
+              const mx = mouse.x - p.x
+              const my = mouse.y - p.y
+              p.vx += mx * 0.0003
+              p.vy += my * 0.0003
+            }
+
+            // drift direcional lento
+            p.x += p.vx + Math.sin(t * p.freq + p.phase) * 0.05
+            p.y += p.vy + Math.cos(t * p.freq + p.phase) * 0.04
+
+            // boundaries suaves
+            if (p.x < -10) p.x = pw + 10
+            if (p.x > pw + 10) p.x = -10
+            if (p.y < -10) p.y = ph + 10
+            if (p.y > ph + 10) p.y = -10
+
+            // desenhar
+            pctx.beginPath()
+            pctx.fillStyle = 'rgba(57, 216, 255, 0.65)'
+            pctx.shadowColor = 'rgba(57, 216, 255, 0.55)'
+            pctx.shadowBlur = 10
+            const pulse = Math.sin(t * p.freq + p.phase) * 0.3
+            pctx.arc(p.x, p.y, p.r + pulse, 0, Math.PI * 2)
+            pctx.fill()
+
+            // amortecer leve para evitar aceleração infinita
+            p.vx *= 0.99
+            p.vy *= 0.99
+          })
+
+          requestAnimationFrame(drawParticles)
+        }
+
+        resizeParticles()
+        initParticles()
+        drawParticles()
+        window.addEventListener('resize', () => {
+          resizeParticles()
+          initParticles()
+        })
+
+        particlesCanvas.addEventListener('mousemove', (e) => {
+          const rect = particlesCanvas.getBoundingClientRect()
+          mouse.x = e.clientX - rect.left
+          mouse.y = e.clientY - rect.top
+          mouse.active = true
+        })
+        particlesCanvas.addEventListener('mouseleave', () => {
+          mouse.active = false
+        })
+      }
+    </script>
+
+    <script>
+      // CTA: iniciar modo "systems view" antes de navegar
+      const startBtn = document.getElementById('start-btn')
+      const overlay = document.getElementById('systems-overlay')
+      const consoleLog = document.getElementById('console-log')
+      const steps = [
+        'Handshake with core services',
+        'Validating architecture graph',
+        'Bootstrapping telemetry channels',
+        'Rendering systems view'
+      ]
+      let stepIndex = 0
+      let stepTimer = null
+
+      function cycleSteps() {
+        if (!consoleLog) return
+        consoleLog.textContent = steps[stepIndex % steps.length]
+        stepIndex++
+        stepTimer = setTimeout(cycleSteps, 700)
+      }
+
+      function launchSystemsView() {
+        if (!overlay) return
+        overlay.classList.add('active')
+        stepIndex = 0
+        cycleSteps()
+        setTimeout(() => {
+          if (stepTimer) clearTimeout(stepTimer)
+          window.location.href = '/projects'
+        }, 2600)
+      }
+
+      if (startBtn) {
+        startBtn.addEventListener('click', (e) => {
+          e.preventDefault()
+          launchSystemsView()
+        })
+      }
+    </script>
   </body>
 </html>
+
+
+
+
+
+
+
